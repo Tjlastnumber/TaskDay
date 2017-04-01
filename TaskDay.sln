@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskDay.Winform", "TaskDay.Winform", "{AA85EDB0-701D-4095-893E-54AAAD861D36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskDay.Core", "TaskDay.Core", "{42C21F4C-18E0-4244-8927-43C4F1229309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDay.Winform", "TaskDay.Winform\TaskDay.Winform.csproj", "{F5E24E11-8C27-4D33-AB2A-2A88F2C550E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDay.Core", "TaskDay.Core\TaskDay.Core.csproj", "{A6E2EFB4-074C-47B8-9ED5-6230FA3C8A7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5E24E11-8C27-4D33-AB2A-2A88F2C550E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E24E11-8C27-4D33-AB2A-2A88F2C550E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E24E11-8C27-4D33-AB2A-2A88F2C550E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E24E11-8C27-4D33-AB2A-2A88F2C550E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6E2EFB4-074C-47B8-9ED5-6230FA3C8A7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6E2EFB4-074C-47B8-9ED5-6230FA3C8A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6E2EFB4-074C-47B8-9ED5-6230FA3C8A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6E2EFB4-074C-47B8-9ED5-6230FA3C8A7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F5E24E11-8C27-4D33-AB2A-2A88F2C550E3} = {AA85EDB0-701D-4095-893E-54AAAD861D36}
+		{A6E2EFB4-074C-47B8-9ED5-6230FA3C8A7B} = {42C21F4C-18E0-4244-8927-43C4F1229309}
+	EndGlobalSection
+EndGlobal
