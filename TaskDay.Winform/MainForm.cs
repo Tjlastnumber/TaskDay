@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ using System.Windows.Forms;
 
 namespace TaskDay.Winform
 {
-    public partial class Form1 : Form
+    public partial class MainForm : MetroFramework.Forms.MetroForm
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }

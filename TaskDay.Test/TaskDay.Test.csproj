@@ -53,6 +53,16 @@
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TaskDay.Core\TaskDay.Core.csproj">
+      <Project>{a6e2efb4-074c-47b8-9ed5-6230fa3c8a7b}</Project>
+      <Name>TaskDay.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskDay.Model\TaskDay.Model.csproj">
+      <Project>{b9c28de2-d390-4be5-b1f2-0518572d184c}</Project>
+      <Name>TaskDay.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
