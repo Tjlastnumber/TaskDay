@@ -41,6 +41,7 @@ namespace MetroUI.Test
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
+            MessageBox.Show(TaskManager.ConvertJson());
         }
     }
 }

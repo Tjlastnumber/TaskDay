@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 using TaskDay.Model;
 
 namespace TaskDay.Core
@@ -67,6 +68,13 @@ namespace TaskDay.Core
         public static ITaskGroup GetTaskGroup(string groupId)
         {
             return TaskGroups.SingleOrDefault(p => p.GroupId.Equals(groupId));
+        }
+
+        public static string ConvertJson()
+        {
+            string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(TaskGroups);
+
+            return JArray.Parse(jsonString).ToString();
         }
     }
 }
