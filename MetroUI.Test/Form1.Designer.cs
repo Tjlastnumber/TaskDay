@@ -28,20 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.SuspendLayout();
-            // 
-            // metroButton1
-            // 
-            this.metroButton1.Location = new System.Drawing.Point(101, 26);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(75, 23);
-            this.metroButton1.TabIndex = 0;
-            this.metroButton1.Text = "addForm";
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
             // 
             // panel1
             // 
@@ -54,11 +43,11 @@
             // 
             // metroButton2
             // 
-            this.metroButton2.Location = new System.Drawing.Point(182, 26);
+            this.metroButton2.Location = new System.Drawing.Point(322, 31);
             this.metroButton2.Name = "metroButton2";
             this.metroButton2.Size = new System.Drawing.Size(75, 23);
             this.metroButton2.TabIndex = 2;
-            this.metroButton2.Text = "load";
+            this.metroButton2.Text = "添加任务";
             this.metroButton2.UseSelectable = true;
             this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
             // 
@@ -69,17 +58,15 @@
             this.ClientSize = new System.Drawing.Size(417, 564);
             this.Controls.Add(this.metroButton2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.metroButton1);
             this.Name = "Form1";
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.AeroShadow;
-            this.Text = "Form1";
+            this.Text = "TaskDay";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private MetroFramework.Controls.MetroButton metroButton1;
         private System.Windows.Forms.Panel panel1;
         private MetroFramework.Controls.MetroButton metroButton2;
     }

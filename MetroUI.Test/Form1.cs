@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using MetroFramework.Forms;
 using MetroUI.Test.Contorls;
 using TaskDay.Core;
+using TaskDay.Model;
 
 namespace MetroUI.Test
 {
@@ -41,25 +42,22 @@ namespace MetroUI.Test
 
         private void metroButton2_Click(object sender, EventArgs e)
         {
-            this.panel1.Controls.Clear();
-            LoadControl lc = new LoadControl(LoadTasks, () =>
+            DailyTask dt = new DailyTask();
+            using (TaskEditForm editForm = new TaskEditForm(dt))
             {
-                foreach (var group in TaskManager.GetTaskGroups())
+                editForm.ShowDialog(this);
+                TaskForm form = new TaskForm(this, dt);
+                form.Show();
+                this.panel1.Controls.Add(form);
+                form.Dock = DockStyle.Top;
+                var location = new Point(form.Location.X, this.panel1.Controls.OfType<TaskForm>().Sum(p => p.Height) - form.Height);
+                form.Dock = DockStyle.None;
+                form.Location = location;
+                form.FormClosed += (s, a) =>
                 {
-                    foreach (var task in group.DailyTasks)
-                    {
-                        TaskForm form = new TaskForm(this, task);
-                        form.Show();
-                        this.panel1.Controls.Add(form);
-                        form.Dock = DockStyle.Top;
-                        var location = new Point(form.Location.X, this.panel1.Controls.OfType<TaskForm>().Sum(p => p.Height) - form.Height);
-                        form.Dock = DockStyle.None;
-                        form.Location = location;
-                    }
-                }
-            });
-            lc.Dock = DockStyle.Fill;
-            this.panel1.Controls.Add(lc);
+                    TaskManager.RemoveTask(form.DailyTask);
+                };
+            }
         }
     }
 }

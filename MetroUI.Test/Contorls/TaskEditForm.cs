@@ -25,9 +25,9 @@ namespace MetroUI.Test.Contorls
         protected override void OnLoad(EventArgs e)
         {
             this.Text = _dailyTask.Title;
-            this.txt_Title.Text = _dailyTask.Title;
-            //this.txt_Content.Lines = _dailyTask.Content.Split(new string[] { @"\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            this.txt_Content.Text = _dailyTask.Content;
+            this.txt_Title.DataBindings.Add("Text", _dailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.txt_Content.DataBindings.Add("Text", _dailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
+
             base.OnLoad(e);
         }
     }

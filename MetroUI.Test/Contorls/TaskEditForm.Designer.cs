@@ -48,8 +48,7 @@
             this.txt_Title.CustomButton.Visible = false;
             this.txt_Title.DisplayIcon = true;
             this.txt_Title.FontSize = MetroFramework.MetroTextBoxSize.Tall;
-            this.txt_Title.Lines = new string[] {
-        "metroTextBox1"};
+            this.txt_Title.Lines = new string[0];
             this.txt_Title.Location = new System.Drawing.Point(23, 33);
             this.txt_Title.MaxLength = 32767;
             this.txt_Title.Name = "txt_Title";
@@ -62,13 +61,16 @@
             this.txt_Title.ShowClearButton = true;
             this.txt_Title.Size = new System.Drawing.Size(169, 39);
             this.txt_Title.TabIndex = 0;
-            this.txt_Title.Text = "metroTextBox1";
             this.txt_Title.UseSelectable = true;
+            this.txt_Title.WaterMark = "标题...";
             this.txt_Title.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txt_Title.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txt_Title.WaterMarkFont = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // txt_Content
             // 
+            this.txt_Content.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -84,8 +86,7 @@
             this.txt_Content.DisplayIcon = true;
             this.txt_Content.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txt_Content.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
-            this.txt_Content.Lines = new string[] {
-        "metroTextBox1"};
+            this.txt_Content.Lines = new string[0];
             this.txt_Content.Location = new System.Drawing.Point(23, 78);
             this.txt_Content.MaxLength = 32767;
             this.txt_Content.Multiline = true;
@@ -97,10 +98,10 @@
             this.txt_Content.SelectionStart = 0;
             this.txt_Content.ShortcutsEnabled = true;
             this.txt_Content.ShowClearButton = true;
-            this.txt_Content.Size = new System.Drawing.Size(254, 199);
+            this.txt_Content.Size = new System.Drawing.Size(358, 131);
             this.txt_Content.TabIndex = 1;
-            this.txt_Content.Text = "metroTextBox1";
             this.txt_Content.UseSelectable = true;
+            this.txt_Content.WaterMark = "内容...";
             this.txt_Content.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txt_Content.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
@@ -108,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 300);
+            this.ClientSize = new System.Drawing.Size(404, 232);
             this.Controls.Add(this.txt_Content);
             this.Controls.Add(this.txt_Title);
             this.DisplayHeader = false;
