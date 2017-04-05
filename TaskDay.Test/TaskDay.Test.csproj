@@ -50,13 +50,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="CoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LibraryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TaskDay.Core\TaskDay.Core.csproj">
       <Project>{a6e2efb4-074c-47b8-9ed5-6230fa3c8a7b}</Project>
       <Name>TaskDay.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskDay.Library\TaskDay.GeneralLibrary.csproj">
+      <Project>{9340d023-31e8-4044-8952-1bd86a76e850}</Project>
+      <Name>TaskDay.GeneralLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\TaskDay.Model\TaskDay.Model.csproj">
       <Project>{b9c28de2-d390-4be5-b1f2-0518572d184c}</Project>

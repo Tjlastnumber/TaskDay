@@ -28,6 +28,7 @@ namespace MetroUI.Test.Contorls
 
             this.DailyTask = dt;
             this.lb_Title.DataBindings.Add("Text", DailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.lb_Date.DataBindings.Add("Text", DailyTask, "Date", true, DataSourceUpdateMode.OnPropertyChanged);
             this.metroLabel1.DataBindings.Add("Text", DailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 

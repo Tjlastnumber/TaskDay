@@ -7,7 +7,7 @@ using System.Linq;
 namespace TaskDay.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class CoreTest
     {
         [TestMethod]
         public void TaskManager_AddGroup_Test()

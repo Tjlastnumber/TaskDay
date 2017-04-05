@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.IO.Compression;
-using System.Windows;
 using Newtonsoft.Json.Linq;
 using TaskDay.Model;
-using System.Reflection;
 
-namespace TaskDay.Core
+namespace TaskDay.WinCore
 {
-    public static class TaskManager
+    public class TaskManager
     {
         static object _manager_lock = new object();
         internal static List<ITaskGroup> TaskGroups = new List<ITaskGroup>();
@@ -123,5 +120,6 @@ namespace TaskDay.Core
                 return JArray.Parse(jsonString).ToString();
             }
         }
+
     }
 }

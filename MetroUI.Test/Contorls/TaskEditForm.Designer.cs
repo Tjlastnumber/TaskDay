@@ -30,6 +30,7 @@
         {
             this.txt_Title = new MetroFramework.Controls.MetroTextBox();
             this.txt_Content = new MetroFramework.Controls.MetroTextBox();
+            this.metroLink1 = new MetroFramework.Controls.MetroLink();
             this.SuspendLayout();
             // 
             // txt_Title
@@ -53,6 +54,7 @@
             this.txt_Title.MaxLength = 32767;
             this.txt_Title.Name = "txt_Title";
             this.txt_Title.PasswordChar = '\0';
+            this.txt_Title.PromptText = "标题...";
             this.txt_Title.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.txt_Title.SelectedText = "";
             this.txt_Title.SelectionLength = 0;
@@ -75,9 +77,9 @@
             // 
             // 
             this.txt_Content.CustomButton.Image = null;
-            this.txt_Content.CustomButton.Location = new System.Drawing.Point(139, 2);
+            this.txt_Content.CustomButton.Location = new System.Drawing.Point(240, 2);
             this.txt_Content.CustomButton.Name = "";
-            this.txt_Content.CustomButton.Size = new System.Drawing.Size(27, 27);
+            this.txt_Content.CustomButton.Size = new System.Drawing.Size(135, 135);
             this.txt_Content.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txt_Content.CustomButton.TabIndex = 1;
             this.txt_Content.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -92,24 +94,38 @@
             this.txt_Content.Multiline = true;
             this.txt_Content.Name = "txt_Content";
             this.txt_Content.PasswordChar = '\0';
+            this.txt_Content.PromptText = "内容...";
             this.txt_Content.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.txt_Content.SelectedText = "";
             this.txt_Content.SelectionLength = 0;
             this.txt_Content.SelectionStart = 0;
             this.txt_Content.ShortcutsEnabled = true;
             this.txt_Content.ShowClearButton = true;
-            this.txt_Content.Size = new System.Drawing.Size(358, 131);
+            this.txt_Content.Size = new System.Drawing.Size(378, 140);
             this.txt_Content.TabIndex = 1;
             this.txt_Content.UseSelectable = true;
             this.txt_Content.WaterMark = "内容...";
             this.txt_Content.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txt_Content.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
+            // metroLink1
+            // 
+            this.metroLink1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.metroLink1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.metroLink1.Location = new System.Drawing.Point(326, 229);
+            this.metroLink1.Name = "metroLink1";
+            this.metroLink1.Size = new System.Drawing.Size(75, 37);
+            this.metroLink1.TabIndex = 2;
+            this.metroLink1.Text = "完成";
+            this.metroLink1.UseSelectable = true;
+            // 
             // TaskEditForm
             // 
+            this.AcceptButton = this.metroLink1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 232);
+            this.ClientSize = new System.Drawing.Size(424, 275);
+            this.Controls.Add(this.metroLink1);
             this.Controls.Add(this.txt_Content);
             this.Controls.Add(this.txt_Title);
             this.DisplayHeader = false;
@@ -128,6 +144,7 @@
 
         private MetroFramework.Controls.MetroTextBox txt_Title;
         private MetroFramework.Controls.MetroTextBox txt_Content;
+        private MetroFramework.Controls.MetroLink metroLink1;
 
     }
 }

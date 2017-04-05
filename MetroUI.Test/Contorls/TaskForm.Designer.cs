@@ -34,6 +34,7 @@
             this.metroLink1 = new MetroFramework.Controls.MetroLink();
             this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.cm_Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.lb_Date = new MetroFramework.Controls.MetroLabel();
             this.metroContextMenu1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,14 +75,23 @@
             this.metroContextMenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cm_Delete});
             this.metroContextMenu1.Name = "metroContextMenu1";
-            this.metroContextMenu1.Size = new System.Drawing.Size(153, 48);
+            this.metroContextMenu1.Size = new System.Drawing.Size(101, 26);
             // 
             // cm_Delete
             // 
             this.cm_Delete.Name = "cm_Delete";
-            this.cm_Delete.Size = new System.Drawing.Size(152, 22);
+            this.cm_Delete.Size = new System.Drawing.Size(100, 22);
             this.cm_Delete.Text = "删除";
             this.cm_Delete.Click += new System.EventHandler(this.cm_Delete_Click);
+            // 
+            // lab_Date
+            // 
+            this.lb_Date.AutoSize = true;
+            this.lb_Date.Location = new System.Drawing.Point(111, 23);
+            this.lb_Date.Name = "lab_Date";
+            this.lb_Date.Size = new System.Drawing.Size(36, 19);
+            this.lb_Date.TabIndex = 3;
+            this.lb_Date.Text = "Date";
             // 
             // TaskForm
             // 
@@ -90,6 +100,7 @@
             this.AutoSize = true;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
             this.ClientSize = new System.Drawing.Size(388, 141);
+            this.Controls.Add(this.lb_Date);
             this.Controls.Add(this.metroLink1);
             this.Controls.Add(this.lb_Title);
             this.Controls.Add(this.metroLabel1);
@@ -112,5 +123,6 @@
         private MetroFramework.Controls.MetroLink metroLink1;
         private MetroFramework.Controls.MetroContextMenu metroContextMenu1;
         private System.Windows.Forms.ToolStripMenuItem cm_Delete;
+        private MetroFramework.Controls.MetroLabel lb_Date;
     }
 }

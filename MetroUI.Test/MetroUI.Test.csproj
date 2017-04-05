@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialSkin">
+      <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
+    </Reference>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
       <Private>True</Private>
@@ -123,6 +126,10 @@
     <ProjectReference Include="..\TaskDay.Core\TaskDay.Core.csproj">
       <Project>{a6e2efb4-074c-47b8-9ed5-6230fa3c8a7b}</Project>
       <Name>TaskDay.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskDay.Library\TaskDay.GeneralLibrary.csproj">
+      <Project>{9340d023-31e8-4044-8952-1bd86a76e850}</Project>
+      <Name>TaskDay.GeneralLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\TaskDay.Model\TaskDay.Model.csproj">
       <Project>{b9c28de2-d390-4be5-b1f2-0518572d184c}</Project>
