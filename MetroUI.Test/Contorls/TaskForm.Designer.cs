@@ -36,9 +36,9 @@
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.Location = new System.Drawing.Point(23, 60);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(52, 19);
+            this.metroLabel1.Size = new System.Drawing.Size(62, 38);
             this.metroLabel1.TabIndex = 0;
-            this.metroLabel1.Text = "Header";
+            this.metroLabel1.Text = "Content1\r\nContent2";
             // 
             // TaskForm
             // 

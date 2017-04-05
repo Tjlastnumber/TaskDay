@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
@@ -22,17 +23,11 @@ namespace MetroUI.Test
             this.IsMdiContainer = true;
             this.panel1.ControlAdded += metroPanel1_ControlAdded;
 
+        }
+
+        private void LoadTasks()
+        {
             TestModel tm = new TestModel();
-            foreach (var group in TaskManager.GetTaskGroups())
-            {
-                foreach (var task in group.DailyTasks)
-                {
-                    TaskForm form = new TaskForm(this, task.Title);
-                    form.Show();
-                    this.panel1.Controls.Add(form);
-                    form.Dock = DockStyle.Top;
-                }
-            }
         }
 
         void metroPanel1_ControlAdded(object sender, ControlEventArgs e)
@@ -42,6 +37,29 @@ namespace MetroUI.Test
         private void metroButton1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(TaskManager.ConvertJson());
+        }
+
+        private void metroButton2_Click(object sender, EventArgs e)
+        {
+            this.panel1.Controls.Clear();
+            LoadControl lc = new LoadControl(LoadTasks, () =>
+            {
+                foreach (var group in TaskManager.GetTaskGroups())
+                {
+                    foreach (var task in group.DailyTasks)
+                    {
+                        TaskForm form = new TaskForm(this, task);
+                        form.Show();
+                        this.panel1.Controls.Add(form);
+                        form.Dock = DockStyle.Top;
+                        var location = new Point(form.Location.X, this.panel1.Controls.OfType<TaskForm>().Sum(p => p.Height) - form.Height);
+                        form.Dock = DockStyle.None;
+                        form.Location = location;
+                    }
+                }
+            });
+            lc.Dock = DockStyle.Fill;
+            this.panel1.Controls.Add(lc);
         }
     }
 }

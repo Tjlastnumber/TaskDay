@@ -8,25 +8,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskDay.Model;
 
 namespace MetroUI.Test.Contorls
 {
     public partial class TaskForm : MetroFramework.Forms.MetroForm
     {
-        public TaskForm(Form mdiParent, string title, string content = "")
+        private DailyTask _dailyTask;
+
+        public TaskForm(Form mdiParent, DailyTask dt)
         {
             InitializeComponent();
 
             this.ControlBox = false;
             this.MdiParent = mdiParent;
-            this.Text = title;
-            this.metroLabel1.Text = content;
+
             this.LocationChanged += TaskForm_LocationChanged;
+            this.Click += TaskForm_Click;
+
+            this.Text = dt.Title;
+            this.metroLabel1.Text = dt.Content;
+            this._dailyTask = dt;
+        }
+
+        void TaskForm_Click(object sender, EventArgs e)
+        {
+            TaskEditForm form = new TaskEditForm(_dailyTask);
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.ShowDialog(this);
         }
 
         void TaskForm_LocationChanged(object sender, EventArgs e)
         {
             Debug.WriteLine(this.Location.ToString());
+            Debug.WriteLine(this.metroLabel1.Text);
         }
     }
 }

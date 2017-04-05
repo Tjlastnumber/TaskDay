@@ -10,6 +10,7 @@ namespace TaskDay.Core
 {
     public static class TaskManager
     {
+        static object managerLock = new object();
         internal static List<ITaskGroup> TaskGroups = new List<ITaskGroup>();
 
         public static void ClearGroups()
@@ -19,44 +20,55 @@ namespace TaskDay.Core
 
         public static void AddGroup(ITaskGroup group)
         {
-            if (GetTaskGroup(group.GroupId) == null)
+            lock (managerLock)
             {
-                TaskGroups.Add(group);
+                if (GetTaskGroup(group.GroupId) == null)
+                {
+                    TaskGroups.Add(group);
+                }
             }
-
             Debug.WriteLine(group.GroupName, "Add Group");
         }
 
         public static void AddTask(ITaskGroup group, DailyTask task)
         {
-            if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId)) == null)
+            lock (managerLock)
             {
-                AddGroup(group);
+                if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId)) == null)
+                {
+                    AddGroup(group);
+                }
+                group.DailyTasks.Add(task);
+                task.GroupId = group.GroupId;
             }
-            group.DailyTasks.Add(task);
-            task.GroupId = group.GroupId;
-
             Debug.WriteLine(task.Title, "Add Task");
         }
 
         public static void RemoveTask(ITaskGroup group, DailyTask task)
         {
-            if (TaskGroups.SingleOrDefault(p => p == group) != null)
+            lock (managerLock)
             {
-                group.DailyTasks.Remove(task);
+                if (TaskGroups.SingleOrDefault(p => p == group) != null)
+                {
+                    group.DailyTasks.Remove(task);
 
-                Debug.WriteLine(task.Title, "Remove Task");
+                    Debug.WriteLine(task.Title, "Remove Task");
+                }
             }
         }
 
         public static void MoveTask(ITaskGroup fromGroup, ITaskGroup toGroup, DailyTask dailyTask)
         {
-            if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(fromGroup.GroupId)) != null &&
-                TaskGroups.SingleOrDefault(p => p.GroupId.Equals(toGroup.GroupId)) != null)
+            lock (managerLock)
             {
-                fromGroup.DailyTasks.Remove(dailyTask);
-                toGroup.DailyTasks.Add(dailyTask);
-                dailyTask.GroupId = toGroup.GroupId;
+                if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(fromGroup.GroupId)) != null &&
+            TaskGroups.SingleOrDefault(p => p.GroupId.Equals(toGroup.GroupId)) != null)
+                {
+                    fromGroup.DailyTasks.Remove(dailyTask);
+                    toGroup.DailyTasks.Add(dailyTask);
+                    dailyTask.GroupId = toGroup.GroupId;
+                }
+                
             }
         }
 

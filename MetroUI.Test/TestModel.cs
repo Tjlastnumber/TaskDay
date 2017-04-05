@@ -18,10 +18,10 @@ namespace MetroUI.Test
             TaskManager.AddGroup(doingGroup);
             TaskManager.AddGroup(deleteGroup);
 
-            DailyTask dt1 = new DailyTask() { Title = "Task1" };
-            DailyTask dt2 = new DailyTask() { Title = "Task2" };
-            DailyTask dt3 = new DailyTask() { Title = "Task3" };
-            DailyTask dt4 = new DailyTask() { Title = "Task4" };
+            DailyTask dt1 = new DailyTask() { Title = "Task1", Content = "Content1\r\nContent_1" };
+            DailyTask dt2 = new DailyTask() { Title = "Task2", Content = "Content2" };
+            DailyTask dt3 = new DailyTask() { Title = "Task3", Content = "Content3" };
+            DailyTask dt4 = new DailyTask() { Title = "Task4", Content = "Content4" };
 
             TaskManager.AddTask(doingGroup, dt1);
             TaskManager.AddTask(doingGroup, dt2);

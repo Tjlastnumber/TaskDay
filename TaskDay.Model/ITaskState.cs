@@ -23,35 +23,12 @@ namespace TaskDay.Model
         }
     }
 
-    public class DoingTasks : ITaskGroup
+    public class DoingTasks : CustomTasks
     {
-        public string GroupId { get; private set; }
-
-        private string _groupName = "当前任务";
-        /// <summary>
-        /// 分组名称
-        /// </summary>
-        public string GroupName
-        {
-            get { return _groupName; }
-            set { _groupName = value; }
-        }
-
-        private List<DailyTask> _dailyTasks;
-        /// <summary>
-        /// 每日任务队列
-        /// </summary>
-        public List<DailyTask> DailyTasks
-        {
-            get { return _dailyTasks; }
-            set { _dailyTasks = value; }
-        }
-
         public DoingTasks()
+            : base()
         {
-            _dailyTasks = new List<DailyTask>();
-
-            GroupId = Guid.NewGuid().ToString();
+            this.GroupName = "今日任务";
         }
     }
 

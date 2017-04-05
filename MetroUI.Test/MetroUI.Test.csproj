@@ -63,6 +63,12 @@
     <Compile Include="Contorls\LoadControl.Designer.cs">
       <DependentUpon>LoadControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Contorls\TaskEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contorls\TaskEditForm.Designer.cs">
+      <DependentUpon>TaskEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Contorls\TaskForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="TestModel.cs" />
     <EmbeddedResource Include="Contorls\LoadControl.resx">
       <DependentUpon>LoadControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contorls\TaskEditForm.resx">
+      <DependentUpon>TaskEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Contorls\TaskForm.resx">
       <DependentUpon>TaskForm.cs</DependentUpon>

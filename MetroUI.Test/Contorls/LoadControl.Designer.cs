@@ -35,6 +35,7 @@
             // 
             // metroPanel1
             // 
+            this.metroPanel1.BackColor = System.Drawing.Color.White;
             this.metroPanel1.Controls.Add(this.metroProgressSpinner1);
             this.metroPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroPanel1.HorizontalScrollbarBarColor = true;
@@ -42,7 +43,7 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(0, 0);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(64, 64);
+            this.metroPanel1.Size = new System.Drawing.Size(510, 453);
             this.metroPanel1.TabIndex = 0;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -50,11 +51,10 @@
             // 
             // metroProgressSpinner1
             // 
-            this.metroProgressSpinner1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroProgressSpinner1.Location = new System.Drawing.Point(0, 0);
+            this.metroProgressSpinner1.Location = new System.Drawing.Point(229, 200);
             this.metroProgressSpinner1.Maximum = 100;
             this.metroProgressSpinner1.Name = "metroProgressSpinner1";
-            this.metroProgressSpinner1.Size = new System.Drawing.Size(64, 64);
+            this.metroProgressSpinner1.Size = new System.Drawing.Size(52, 52);
             this.metroProgressSpinner1.TabIndex = 2;
             this.metroProgressSpinner1.UseSelectable = true;
             // 
@@ -62,9 +62,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.metroPanel1);
             this.Name = "LoadControl";
-            this.Size = new System.Drawing.Size(64, 64);
+            this.Size = new System.Drawing.Size(510, 453);
             this.metroPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -74,5 +75,6 @@
 
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
+
     }
 }
