@@ -10,7 +10,7 @@ namespace TaskDay.Core
 {
     public static class TaskManager
     {
-        static object managerLock = new object();
+        static object _manager_lock = new object();
         internal static List<ITaskGroup> TaskGroups = new List<ITaskGroup>();
 
         public static void ClearGroups()
@@ -20,7 +20,7 @@ namespace TaskDay.Core
 
         public static void AddGroup(ITaskGroup group)
         {
-            lock (managerLock)
+            lock (_manager_lock)
             {
                 if (GetTaskGroup(group.GroupId) == null)
                 {
@@ -32,7 +32,7 @@ namespace TaskDay.Core
 
         public static void AddTask(ITaskGroup group, DailyTask task)
         {
-            lock (managerLock)
+            lock (_manager_lock)
             {
                 if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId)) == null)
                 {
@@ -44,11 +44,12 @@ namespace TaskDay.Core
             Debug.WriteLine(task.Title, "Add Task");
         }
 
-        public static void RemoveTask(ITaskGroup group, DailyTask task)
+        public static void RemoveTask(DailyTask task)
         {
-            lock (managerLock)
+            lock (_manager_lock)
             {
-                if (TaskGroups.SingleOrDefault(p => p == group) != null)
+                var group = TaskGroups.SingleOrDefault(p => p.GroupId == task.GroupId);
+                if (group != null)
                 {
                     group.DailyTasks.Remove(task);
 
@@ -59,7 +60,7 @@ namespace TaskDay.Core
 
         public static void MoveTask(ITaskGroup fromGroup, ITaskGroup toGroup, DailyTask dailyTask)
         {
-            lock (managerLock)
+            lock (_manager_lock)
             {
                 if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(fromGroup.GroupId)) != null &&
             TaskGroups.SingleOrDefault(p => p.GroupId.Equals(toGroup.GroupId)) != null)
@@ -68,25 +69,33 @@ namespace TaskDay.Core
                     toGroup.DailyTasks.Add(dailyTask);
                     dailyTask.GroupId = toGroup.GroupId;
                 }
-                
             }
         }
 
         public static List<ITaskGroup> GetTaskGroups()
         {
-            return TaskGroups;
+            lock (_manager_lock)
+            {
+                return TaskGroups;
+            }
         }
 
         public static ITaskGroup GetTaskGroup(string groupId)
         {
-            return TaskGroups.SingleOrDefault(p => p.GroupId.Equals(groupId));
+            lock (_manager_lock)
+            {
+                return TaskGroups.SingleOrDefault(p => p.GroupId.Equals(groupId));
+            }
         }
 
         public static string ConvertJson()
         {
-            string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(TaskGroups);
+            lock (_manager_lock)
+            {
+                string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(TaskGroups);
 
-            return JArray.Parse(jsonString).ToString();
+                return JArray.Parse(jsonString).ToString();
+            }
         }
     }
 }
