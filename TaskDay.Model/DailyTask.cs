@@ -27,6 +27,11 @@ namespace TaskDay.Model
         /// </summary>
         public string GroupId { get; set; }
 
+        /// <summary>
+        /// 原分组ID
+        /// </summary>
+        public string OldGroupId { get; set; }
+
         public DailyTask()
         {
             var dateTimeNow = DateTime.Now;
