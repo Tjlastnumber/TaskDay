@@ -68,10 +68,11 @@ namespace MetroUI.Test
             if (TaskManager.MoveToDeletedGroup(form.DailyTask))
             {
                 TaskForm taskform = new TaskForm(this, form.DailyTask);
-                this.metroTabControl1.TabPages[DeletedTasks.GUID].Controls.Add(taskform);
                 taskform.Show();
+                this.metroTabControl1.TabPages[form.DailyTask.GroupId].Controls.Add(taskform);
                 taskform.Dock = DockStyle.Top;
-                var location = new Point(taskform.Location.X, this.metroTabControl1.SelectedTab.Controls.OfType<TaskForm>().Sum(p => p.Height) - taskform.Height);
+                var location = new Point(taskform.Location.X,
+                    this.metroTabControl1.TabPages[taskform.DailyTask.GroupId].Controls.OfType<TaskForm>().Sum(p => p.Height) - taskform.Height);
                 taskform.Dock = DockStyle.None;
                 taskform.Location = location;
                 taskform.FormClosed += form_FormClosed;
