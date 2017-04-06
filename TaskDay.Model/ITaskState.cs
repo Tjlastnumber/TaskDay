@@ -16,19 +16,23 @@ namespace TaskDay.Model
 
     public class DeletedTasks : CustomTasks
     {
+        public static readonly string GUID = "A48D4811-952D-4142-A1B8-E5EEA8B639CE";
         public DeletedTasks()
             : base()
         {
             this.GroupName = "已删除";
+            this.GroupId = GUID; 
         }
     }
 
     public class DoingTasks : CustomTasks
     {
+        public static readonly string GUID = "B54CCF78-51DF-4B06-A480-D35F31DDF09A";
         public DoingTasks()
             : base()
         {
             this.GroupName = "今日任务";
+            this.GroupId = GUID; 
         }
     }
 
@@ -58,10 +62,8 @@ namespace TaskDay.Model
         public CustomTasks()
         {
             _dailyTasks = new List<DailyTask>();
-
-            GroupId = Guid.NewGuid().ToString();
         }
 
-        public string GroupId { get; private set; }
+        public string GroupId { get; set; }
     }
 }
