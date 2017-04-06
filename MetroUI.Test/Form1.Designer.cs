@@ -28,18 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
+            this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(20, 60);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(377, 484);
-            this.panel1.TabIndex = 1;
             // 
             // metroButton2
             // 
@@ -51,13 +42,22 @@
             this.metroButton2.UseSelectable = true;
             this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
             // 
+            // metroTabControl1
+            // 
+            this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
+            this.metroTabControl1.Name = "metroTabControl1";
+            this.metroTabControl1.Size = new System.Drawing.Size(377, 484);
+            this.metroTabControl1.TabIndex = 3;
+            this.metroTabControl1.UseSelectable = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 564);
+            this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.metroButton2);
-            this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.AeroShadow;
             this.Text = "TaskDay";
@@ -67,8 +67,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
         private MetroFramework.Controls.MetroButton metroButton2;
+        private MetroFramework.Controls.MetroTabControl metroTabControl1;
     }
 }
 
