@@ -61,7 +61,7 @@
             this.txt_Title.SelectionStart = 0;
             this.txt_Title.ShortcutsEnabled = true;
             this.txt_Title.ShowClearButton = true;
-            this.txt_Title.Size = new System.Drawing.Size(169, 39);
+            this.txt_Title.Size = new System.Drawing.Size(192, 39);
             this.txt_Title.TabIndex = 0;
             this.txt_Title.UseSelectable = true;
             this.txt_Title.WaterMark = "标题...";
@@ -110,6 +110,7 @@
             // 
             // metroLink1
             // 
+            this.metroLink1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.metroLink1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.metroLink1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.metroLink1.Location = new System.Drawing.Point(326, 229);
