@@ -55,7 +55,7 @@ namespace TaskDay.Core
 
         public static void ClearGroups()
         {
-            TaskGroups.Clear();
+            TaskGroups = null;
         }
 
         public static void AddGroup(ITaskGroup group)
@@ -81,6 +81,25 @@ namespace TaskDay.Core
                         AddGroup(group);
                     }
                     group.DailyTasks.Add(task);
+                    task.GroupId = group.GroupId;
+                    Debug.WriteLine(task.Title, "Add Task");
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public static bool InsertTask(ITaskGroup group, DailyTask task)
+        {
+            lock (_manager_lock)
+            {
+                if (!string.IsNullOrWhiteSpace(task.Title) || !string.IsNullOrWhiteSpace(task.Content))
+                {
+                    if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId)) == null)
+                    {
+                        AddGroup(group);
+                    }
+                    group.DailyTasks.Insert(0, task);
                     task.GroupId = group.GroupId;
                     Debug.WriteLine(task.Title, "Add Task");
                     return true;
@@ -120,26 +139,6 @@ namespace TaskDay.Core
             }
         }
 
-        public static bool MoveToDeletedGroup(DailyTask dailyTask)
-        {
-            lock (_manager_lock)
-            {
-                var fromGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(dailyTask.GroupId));
-                var deletedGroup = GetTaskGroup(DeletedTasks.GUID);
-                if (fromGroup != null && deletedGroup != null)
-                {
-                    if (fromGroup.DailyTasks.Remove(dailyTask))
-                    {
-                        dailyTask.OldGroupId = fromGroup.GroupId;
-                        AddTask(deletedGroup, dailyTask);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-
         public static void MoveTask(ITaskGroup fromGroup, ITaskGroup toGroup, DailyTask dailyTask)
         {
             lock (_manager_lock)
@@ -152,6 +151,25 @@ namespace TaskDay.Core
                     dailyTask.GroupId = toGroup.GroupId;
                     dailyTask.OldGroupId = fromGroup.GroupId;
                 }
+            }
+        }
+
+        public static bool MoveToDeletedGroup(DailyTask dailyTask)
+        {
+            lock (_manager_lock)
+            {
+                var fromGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(dailyTask.GroupId));
+                var deletedGroup = GetTaskGroup(DeletedTasks.GUID);
+                if (fromGroup != null && deletedGroup != null)
+                {
+                    if (fromGroup.DailyTasks.Remove(dailyTask))
+                    {
+                        dailyTask.OldGroupId = fromGroup.GroupId;
+                        InsertTask(deletedGroup, dailyTask);
+                        return true;
+                    }
+                }
+                return false;
             }
         }
 

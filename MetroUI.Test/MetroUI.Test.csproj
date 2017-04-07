@@ -107,6 +107,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -135,6 +136,16 @@
       <Project>{b9c28de2-d390-4be5-b1f2-0518572d184c}</Project>
       <Name>TaskDay.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TaskDay.Winform\TaskDay.Winform.csproj">
+      <Project>{f5e24e11-8c27-4d33-ab2a-2a88f2c550e3}</Project>
+      <Name>TaskDay.Winform</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Command-Reset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hamburg.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

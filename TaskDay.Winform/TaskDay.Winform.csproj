@@ -61,6 +61,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ControlHelper.cs" />
+    <Compile Include="Controls\TaskItemTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TaskItemTextBox.Designer.cs">
+      <DependentUpon>TaskItemTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +76,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\TaskItemTextBox.resx">
+      <DependentUpon>TaskItemTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,8 +109,20 @@
   <ItemGroup>
     <None Include="Resources\Hamburg.png" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <ProjectReference Include="..\TaskDay.Core\TaskDay.Core.csproj">
+      <Project>{a6e2efb4-074c-47b8-9ed5-6230fa3c8a7b}</Project>
+      <Name>TaskDay.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskDay.Library\TaskDay.GeneralLibrary.csproj">
+      <Project>{9340d023-31e8-4044-8952-1bd86a76e850}</Project>
+      <Name>TaskDay.GeneralLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskDay.Model\TaskDay.Model.csproj">
+      <Project>{b9c28de2-d390-4be5-b1f2-0518572d184c}</Project>
+      <Name>TaskDay.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

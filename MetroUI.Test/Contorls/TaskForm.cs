@@ -14,6 +14,9 @@ namespace MetroUI.Test.Contorls
 {
     public partial class TaskForm : MetroFramework.Forms.MetroForm
     {
+
+        private bool _isClick = false;
+
         public DailyTask DailyTask { get; private set; }
 
         public TaskForm(Form mdiParent, DailyTask dt)
@@ -23,26 +26,36 @@ namespace MetroUI.Test.Contorls
             this.ControlBox = false;
             this.MdiParent = mdiParent;
 
-            //this.LocationChanged += TaskForm_LocationChanged;
-            this.Click += TaskForm_Click;
-
+            this.MouseDown += TaskForm_MouseDown;
+            this.MouseMove += TaskForm_MouseMove;
+            this.MouseUp += TaskForm_MouseUp;
             this.DailyTask = dt;
             this.lb_Title.DataBindings.Add("Text", DailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
             this.lb_Date.DataBindings.Add("Text", DailyTask, "Date", true, DataSourceUpdateMode.OnPropertyChanged);
             this.metroLabel1.DataBindings.Add("Text", DailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
-        void TaskForm_Click(object sender, EventArgs e)
+        void TaskForm_MouseDown(object sender, MouseEventArgs e)
         {
-            TaskEditForm form = new TaskEditForm(DailyTask);
-            form.StartPosition = FormStartPosition.CenterParent;
-            form.ShowDialog(this);
+            _isClick = true;
         }
 
-        void TaskForm_LocationChanged(object sender, EventArgs e)
+        void TaskForm_MouseUp(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine(this.Location.ToString());
-            Debug.WriteLine(this.metroLabel1.Text);
+            if (_isClick)
+            {
+                TaskEditForm form = new TaskEditForm(DailyTask);
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
+            }
+        }
+
+        void TaskForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (this.Capture)
+            {
+                _isClick = false;
+            }
         }
 
         private void metroLink1_Click(object sender, EventArgs e)

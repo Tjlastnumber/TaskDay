@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetroFramework.Forms;
 using MetroUI.Test.Contorls;
-using System.IO;
 using TaskDay.Core;
 using TaskDay.Model;
 using TaskDay.GeneralLibrary;
+using TaskDay.Winform.Common;
 
 namespace MetroUI.Test
 {
@@ -24,42 +17,73 @@ namespace MetroUI.Test
             InitializeComponent();
 
             this.IsMdiContainer = true;
+            this.FormClosing += Form1_FormClosing;
+        }
+
+        void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FileHelper.SaveJosn(TaskManager.ConvertJson());
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            var rj = FileHelper.ReadJosn<List<CustomTasks>>();
-            if (rj != null)
-            {
-                List<ITaskGroup> group = rj.ToList<ITaskGroup>();
-                TaskManager.Load(group);
-            }
-            foreach (var taskgroup in TaskManager.GetTaskGroups())
-            {
-                MetroFramework.Controls.MetroTabPage tabPage = new MetroFramework.Controls.MetroTabPage();
-                tabPage.Name = taskgroup.GroupId;
-                tabPage.Tag = taskgroup;
-                tabPage.Text = taskgroup.GroupName;
-                tabPage.HorizontalScrollbar = false;
-                tabPage.HorizontalScroll.Enabled = false;
-                tabPage.HorizontalScrollbarHighlightOnWheel = false;
-                tabPage.VerticalScrollbar = true;
-                tabPage.AutoScroll = true;
-                metroTabControl1.TabPages.Add(tabPage);
 
-                foreach (var task in taskgroup.DailyTasks)
+            LoadTasks();
+        }
+
+        private void LoadTasks()
+        {
+            TaskManager.ClearGroups();
+            LoadControl lc = new LoadControl(
+                () =>
                 {
-                    TaskForm form = new TaskForm(this, task);
-                    form.Show();
-                    tabPage.Controls.Add(form);
-                    form.Dock = DockStyle.Top;
-                    var location = new Point(form.Location.X, tabPage.Controls.OfType<TaskForm>().Sum(p => p.Height) - form.Height);
-                    form.Dock = DockStyle.None;
-                    form.Location = location;
-                    form.FormClosed += form_FormClosed;
-                }
-            }
+                    TaskManager.ClearGroups();
+                    var rj = FileHelper.ReadJosn<List<CustomTasks>>();
+                    if (rj != null)
+                    {
+                        TaskManager.Load(rj.ToList<ITaskGroup>());
+                    }
+                },
+                () =>
+                {
+                    foreach (var taskgroup in TaskManager.GetTaskGroups())
+                    {
+                        MetroFramework.Controls.MetroTabPage tabPage = new MetroFramework.Controls.MetroTabPage();
+                        tabPage.Name = taskgroup.GroupId;
+                        tabPage.Tag = taskgroup;
+                        tabPage.Text = taskgroup.GroupName;
+                        tabPage.HorizontalScrollbar = false;
+                        tabPage.HorizontalScroll.Enabled = false;
+                        tabPage.HorizontalScrollbarHighlightOnWheel = false;
+                        tabPage.VerticalScrollbar = true;
+                        tabPage.AutoScroll = true;
+
+                        tabPage.TabPagePanelDock<TaskForm>(() =>
+                        {
+                            List<DailyTask> dtl = new List<DailyTask>();
+                            foreach (var ctl in tabPage.Controls.OfType<TaskForm>())
+                            {
+                                dtl.Add(ctl.DailyTask);
+                            }
+                            TaskManager.GetTaskGroup(tabPage.Name).DailyTasks = dtl;
+                        });
+
+                        metroTabControl1.TabPages.Add(tabPage);
+
+                        foreach (var task in taskgroup.DailyTasks)
+                        {
+                            TaskForm form = new TaskForm(this, task);
+                            form.Show();
+                            tabPage.Controls.Add(form);
+                            form.FormClosed += form_FormClosed;
+                        }
+                    }
+                });
+            lc.Parent = this;
+            lc.Dock = DockStyle.Fill;
+            this.Controls.Add(lc);
+            this.Controls.SetChildIndex(lc, 0);
         }
 
         void form_FormClosed(object sender, FormClosedEventArgs e)
@@ -70,11 +94,6 @@ namespace MetroUI.Test
                 TaskForm taskform = new TaskForm(this, form.DailyTask);
                 taskform.Show();
                 this.metroTabControl1.TabPages[form.DailyTask.GroupId].Controls.Add(taskform);
-                taskform.Dock = DockStyle.Top;
-                var location = new Point(taskform.Location.X,
-                    this.metroTabControl1.TabPages[taskform.DailyTask.GroupId].Controls.OfType<TaskForm>().Sum(p => p.Height) - taskform.Height);
-                taskform.Dock = DockStyle.None;
-                taskform.Location = location;
                 taskform.FormClosed += form_FormClosed;
                 FileHelper.SaveJosn(TaskManager.ConvertJson());
             }
@@ -91,17 +110,20 @@ namespace MetroUI.Test
                     if (TaskManager.AddTask(group, dt))
                     {
                         TaskForm form = new TaskForm(this, dt);
-                        this.metroTabControl1.SelectedTab.Controls.Add(form);
                         form.Show();
-                        form.Dock = DockStyle.Top;
-                        var location = new Point(form.Location.X, this.metroTabControl1.SelectedTab.Controls.OfType<TaskForm>().Sum(p => p.Height) - form.Height);
-                        form.Dock = DockStyle.None;
-                        form.Location = location;
+                        this.metroTabControl1.SelectedTab.Controls.Add(form);
+                        this.metroTabControl1.SelectedTab.ScrollControlIntoView(form);
                         form.FormClosed += form_FormClosed;
                         FileHelper.SaveJosn(TaskManager.ConvertJson());
                     }
                 }
             }
+        }
+
+        private void metroLink1_Click(object sender, EventArgs e)
+        {
+            this.metroTabControl1.TabPages.Clear();
+            LoadTasks();
         }
     }
 }

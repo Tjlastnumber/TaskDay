@@ -13,7 +13,7 @@ namespace TaskDay.Test
         public void TaskManager_AddGroup_Test()
         {
             TaskManager.ClearGroups();
-            ITaskGroup doingTasks = new DoingTasks();
+            CustomTasks doingTasks = new DoingTasks();
             TaskDay.Core.TaskManager.AddGroup(doingTasks);
             Assert.IsTrue(TaskManager.GetTaskGroups().Count == 1);
         }
@@ -22,7 +22,7 @@ namespace TaskDay.Test
         public void TaskManager_AddTask_Test()
         {
             TaskManager.ClearGroups();
-            ITaskGroup doingTasks = new DoingTasks();
+            CustomTasks doingTasks = new DoingTasks();
             TaskDay.Core.TaskManager.AddTask(doingTasks, new DailyTask { Title = "Test" });
             Assert.IsTrue(TaskManager.GetTaskGroups().Count == 1);
             Assert.IsTrue(TaskManager.GetTaskGroup(doingTasks.GroupId).DailyTasks.Count == 1);
@@ -33,8 +33,8 @@ namespace TaskDay.Test
         {
             TaskManager.ClearGroups();
             DailyTask task = new DailyTask() { Title = "Title", Content = "Content", Date = DateTime.Now };
-            ITaskGroup doingTasks = new DoingTasks();
-            ITaskGroup deletedTasks = new DeletedTasks();
+            CustomTasks doingTasks = new DoingTasks();
+            CustomTasks deletedTasks = new DeletedTasks();
             TaskManager.AddGroup(doingTasks);
             TaskManager.AddGroup(deletedTasks);
             TaskManager.AddTask(doingTasks, task);
