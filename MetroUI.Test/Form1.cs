@@ -59,7 +59,7 @@ namespace MetroUI.Test
                         tabPage.VerticalScrollbar = true;
                         tabPage.AutoScroll = true;
 
-                        tabPage.TabPagePanelDock<TaskForm>(() =>
+                        tabPage.PagePanelDock<TaskForm>(() =>
                         {
                             List<DailyTask> dtl = new List<DailyTask>();
                             foreach (var ctl in tabPage.Controls.OfType<TaskForm>())

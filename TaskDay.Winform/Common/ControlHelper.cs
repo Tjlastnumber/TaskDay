@@ -12,7 +12,14 @@ namespace TaskDay.Winform.Common
     public static class ControlHelper
     {
         static int margin = 8;
-        public static void TabPagePanelDock<T>(this Panel tabPage, Action orderChangedCallBack, bool isInsert = false) where T : Control
+        /// <summary>
+        /// 容器控件布局扩展方法
+        /// </summary>
+        /// <typeparam name="T">容器内需要排列的控件类型</typeparam>
+        /// <param name="tabPage">当前容器</param>
+        /// <param name="orderChangedCallBack">容器内控件顺序改变回调函数</param>
+        /// <param name="isInsert">容器添加控件是否启用插入模式</param>
+        public static void PagePanelDock<T>(this Panel tabPage, Action orderChangedCallBack, bool isInsert = false) where T : Control
         {
             List<Control> ctlList = new List<Control>();
             tabPage.ControlAdded += (s, e) =>
@@ -27,8 +34,8 @@ namespace TaskDay.Winform.Common
                     ctlList.Add(ctl);
                 }
 
-                OrderControls(tabPage, ctlList, ctl);
-                tabPage.VerticalScroll.Value = 0;
+                OrderControls(tabPage, ctlList, ctlList.FirstOrDefault());
+                //tabPage.VerticalScroll.Value = 0;
 
                 Point ml = new Point();
                 ctl.MouseDown += (cs, ce) =>
@@ -51,9 +58,8 @@ namespace TaskDay.Winform.Common
 
                         BorderScroll(tabPage, ctl);
 
-                        tabPage.Refresh();
-
-                        ControlsTransposition(ref ctlList, tabPage, ctl, ce, offsetY, orderChangedCallBack);
+                        if (ControlsTransposition(ref ctlList, tabPage, ctl, ce, offsetY))
+                            orderChangedCallBack();
                     }
                 };
 
@@ -73,8 +79,18 @@ namespace TaskDay.Winform.Common
             };
         }
 
-        private static void ControlsTransposition(ref List<Control> ctlList, Panel tabPage, Control ctl, MouseEventArgs ce, int offsetY, Action callback)
+        /// <summary>
+        /// 控件拖动
+        /// </summary>
+        /// <param name="ctlList">控件列表集合</param>
+        /// <param name="tabPage">控件父级</param>
+        /// <param name="ctl">当前控件</param>
+        /// <param name="ce">事件提供数据</param>
+        /// <param name="offsetY">鼠标Y轴偏移量</param>
+        /// <param name="callback">位置改变回调函数</param>
+        private static bool ControlsTransposition(ref List<Control> ctlList, Panel tabPage, Control ctl, MouseEventArgs ce, int offsetY)
         {
+            bool result = false;
             var target_ctl = ctlList.Where(p => p.Bottom > (ce.Location.Y + ctl.Top) && p.Top < (ce.Location.Y + ctl.Top) && p != ctl).FirstOrDefault();
             if (target_ctl != null)
             {
@@ -86,10 +102,14 @@ namespace TaskDay.Winform.Common
                         tabPage.ScrollControlIntoView(ctl);
 
                         target_ctl.Top = ctlList[target_index - 1].Bottom + ctl.Height + margin * 2;
+
+                        result = true;
                     }
                     else
                     {
                         target_ctl.Top = ctl.Height + margin * 2;
+
+                        result = true;
                     }
                 }
                 else if (offsetY > 0)
@@ -98,17 +118,26 @@ namespace TaskDay.Winform.Common
                     if (ctl_index - 1 >= 0)
                     {
                         target_ctl.Top = ctlList[ctl_index - 1].Bottom + margin;
+
+                        result = true;
                     }
                     else
                     {
                         target_ctl.Top = margin;
+
+                        result = true;
                     }
                 }
                 ctlList = ctlList.OrderBy(p => p.Top).ToList();
-                callback();
             }
+            return result;
         }
 
+        /// <summary>
+        /// 控件贴近容器边缘时自动滚动
+        /// </summary>
+        /// <param name="tabPage">容器</param>
+        /// <param name="ctl">当前控件</param>
         private static void BorderScroll(Panel tabPage, Control ctl)
         {
             if (ctl.Top <= 0)
@@ -116,6 +145,7 @@ namespace TaskDay.Winform.Common
                 if ((tabPage.VerticalScroll.Value - tabPage.VerticalScroll.SmallChange) > tabPage.VerticalScroll.Minimum)
                 {
                     tabPage.VerticalScroll.Value -= tabPage.VerticalScroll.SmallChange;
+                    tabPage.Refresh();
                 }
             }
             else if (ctl.Bottom >= tabPage.Height)
@@ -123,10 +153,16 @@ namespace TaskDay.Winform.Common
                 if (tabPage.VerticalScroll.Value + tabPage.VerticalScroll.SmallChange < tabPage.VerticalScroll.Maximum)
                 {
                     tabPage.VerticalScroll.Value += tabPage.VerticalScroll.SmallChange;
+                    tabPage.Refresh();
                 }
             }
         }
-
+        /// <summary>
+        /// 按照控件的顺序重新布局所有控件
+        /// </summary>
+        /// <param name="tabPage">容器</param>
+        /// <param name="ctlList">控件列表</param>
+        /// <param name="ctl">当前控件</param>
         private static void OrderControls(Panel tabPage, List<Control> ctlList, Control ctl)
         {
             int vsValue = tabPage.VerticalScroll.Value;
@@ -138,13 +174,12 @@ namespace TaskDay.Winform.Common
                 current.Location = new Point(margin, (previous ?? new Control()).Bottom + margin);
                 current.Width = tabPage.ClientSize.Width - margin * 2;
             }
-            //tabPage.VerticalScroll.Value = vsValue;
             tabPage.ScrollControlIntoView(ctl);
             tabPage.Invalidate();
         }
     }
 
-    public static class ListExtension
+    public static class Extension
     {
         public static List<T> ExchangIndex<T>(this List<T> list, T o1, T o2)
         {

@@ -29,7 +29,7 @@ namespace MetroUI.Test.Contorls
             this.Text = _dailyTask.Title;
             this.txt_Title.DataBindings.Add("Text", _dailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
             this.txt_Content.DataBindings.Add("Text", _dailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
-            this.metroPanel1.TabPagePanelDock<TaskItemTextBox>(() => { });
+            this.metroPanel1.PagePanelDock<TaskItemTextBox>(() => { });
 
             base.OnLoad(e);
         }
