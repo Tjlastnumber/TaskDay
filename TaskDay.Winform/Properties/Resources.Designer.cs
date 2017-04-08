@@ -63,6 +63,16 @@ namespace TaskDay.Winform.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Bullets {
+            get {
+                object obj = ResourceManager.GetObject("Bullets", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Hamburg {
             get {
                 object obj = ResourceManager.GetObject("Hamburg", resourceCulture);

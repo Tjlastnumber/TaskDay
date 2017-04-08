@@ -12,13 +12,15 @@ namespace TaskDay.Winform.Controls
 {
     public partial class TaskItemTextBox : UserControl
     {
+        public string ContentText { set { this.txt_Content.Text = value; } get { return this.txt_Content.Text; } }
+
         public TaskItemTextBox()
         {
             InitializeComponent();
 
-            this.metroLabel1.MouseDown += metroTextBox1_MouseClick;
-            this.metroLabel1.MouseMove += metroLabel1_MouseMove;
-            this.metroLabel1.MouseUp += metroLabel1_MouseUp;
+            this.metroLink1.MouseDown += metroTextBox1_MouseClick;
+            this.metroLink1.MouseMove += metroLabel1_MouseMove;
+            this.metroLink1.MouseUp += metroLabel1_MouseUp;
         }
 
         void metroLabel1_MouseUp(object sender, MouseEventArgs e)

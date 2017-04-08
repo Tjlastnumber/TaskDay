@@ -109,7 +109,9 @@
   <ItemGroup>
     <None Include="Resources\Hamburg.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Bullets.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TaskDay.Core\TaskDay.Core.csproj">
       <Project>{a6e2efb4-074c-47b8-9ed5-6230fa3c8a7b}</Project>
