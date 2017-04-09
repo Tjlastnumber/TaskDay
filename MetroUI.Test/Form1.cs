@@ -53,6 +53,7 @@ namespace MetroUI.Test
                         tabPage.Name = taskgroup.GroupId;
                         tabPage.Tag = taskgroup;
                         tabPage.Text = taskgroup.GroupName;
+                        tabPage.VerticalScrollbarSize = 4;
                         tabPage.HorizontalScrollbar = false;
                         tabPage.HorizontalScroll.Enabled = false;
                         tabPage.HorizontalScrollbarHighlightOnWheel = false;
