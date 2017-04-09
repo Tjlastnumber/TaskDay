@@ -62,6 +62,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ControlHelper.cs" />
+    <Compile Include="Controls\LoadControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LoadControl.Designer.cs">
+      <DependentUpon>LoadControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TaskEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TaskEditForm.Designer.cs">
+      <DependentUpon>TaskEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TaskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TaskForm.Designer.cs">
+      <DependentUpon>TaskForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TaskItemTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -76,6 +94,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\LoadControl.resx">
+      <DependentUpon>LoadControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TaskEditForm.resx">
+      <DependentUpon>TaskEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TaskForm.resx">
+      <DependentUpon>TaskForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\TaskItemTextBox.resx">
       <DependentUpon>TaskItemTextBox.cs</DependentUpon>
     </EmbeddedResource>
