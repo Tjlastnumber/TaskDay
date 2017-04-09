@@ -35,18 +35,34 @@ namespace TaskDay.Winform.Common
                 }
 
                 OrderControls(tabPage, ctlList, ctlList.FirstOrDefault());
-                //tabPage.VerticalScroll.Value = 0;
+                tabPage.Invalidate();
 
                 Point ml = new Point();
+                int ctl_top = 0;
+                int ctl_left = 0;
+                bool isTransposition = false;
+
                 ctl.MouseDown += (cs, ce) =>
                 {
+
                     tabPage.Controls.SetChildIndex(ctl, 0);
                     ml = ce.Location;
+                    ctl_top = ctl.Top;
+                    ctl_left = ctl.Left;
                 };
 
                 ctl.MouseUp += (cs, ce) =>
                 {
-                    OrderControls(tabPage, ctlList, ctl);
+                    if (isTransposition)
+                    {
+                        OrderControls(tabPage, ctlList, ctl);
+                        isTransposition = false;
+                    }
+                    else
+                    {
+                        ctl.Top = ctl_top;
+                        ctl.Left = ctl_left;
+                    }
                 };
 
                 ctl.MouseMove += (cs, ce) =>
@@ -59,16 +75,18 @@ namespace TaskDay.Winform.Common
                         BorderScroll(tabPage, ctl);
 
                         if (ControlsTransposition(ref ctlList, tabPage, ctl, ce, offsetY))
+                        {
+                            isTransposition = true;
                             orderChangedCallBack();
+                        }
                     }
                 };
 
                 ctl.SizeChanged += (cs, ce) =>
                 {
-                    OrderControls(tabPage, ctlList, ctl);
+                    //OrderControls(tabPage, ctlList, ctl);
                 };
 
-                tabPage.Invalidate();
             };
 
             tabPage.ControlRemoved += (s, e) =>
@@ -145,15 +163,15 @@ namespace TaskDay.Winform.Common
                 if ((tabPage.VerticalScroll.Value - tabPage.VerticalScroll.SmallChange) > tabPage.VerticalScroll.Minimum)
                 {
                     tabPage.VerticalScroll.Value -= tabPage.VerticalScroll.SmallChange;
-                    tabPage.Refresh();
+                    tabPage.Update();
                 }
             }
             else if (ctl.Bottom >= tabPage.Height)
             {
-                if (tabPage.VerticalScroll.Value + tabPage.VerticalScroll.SmallChange < tabPage.VerticalScroll.Maximum)
+                if ((tabPage.VerticalScroll.Value + tabPage.VerticalScroll.SmallChange) < tabPage.VerticalScroll.Maximum)
                 {
                     tabPage.VerticalScroll.Value += tabPage.VerticalScroll.SmallChange;
-                    tabPage.Refresh();
+                    tabPage.Update();
                 }
             }
         }
@@ -174,7 +192,14 @@ namespace TaskDay.Winform.Common
                 current.Location = new Point(margin, (previous ?? new Control()).Bottom + margin);
                 current.Width = tabPage.ClientSize.Width - margin * 2;
             }
-            tabPage.ScrollControlIntoView(ctl);
+            if (ctl == ctlList.LastOrDefault())
+            {
+                tabPage.ScrollControlIntoView(ctl);
+            }
+            else
+            {
+                tabPage.VerticalScroll.Value = vsValue;
+            }
             tabPage.Invalidate();
         }
     }
