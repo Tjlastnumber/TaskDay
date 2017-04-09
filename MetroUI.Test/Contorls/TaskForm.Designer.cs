@@ -33,8 +33,8 @@
             this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.cm_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_Date = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel1 = new System.Windows.Forms.RichTextBox();
             this.metroLink1 = new MetroFramework.Controls.MetroLink();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroContextMenu1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,16 +74,6 @@
             this.lb_Date.TabIndex = 3;
             this.lb_Date.Text = "Date";
             // 
-            // metroLabel1
-            // 
-            this.metroLabel1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.metroLabel1.Location = new System.Drawing.Point(91, 56);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.ReadOnly = true;
-            this.metroLabel1.Size = new System.Drawing.Size(100, 76);
-            this.metroLabel1.TabIndex = 4;
-            this.metroLabel1.Text = "";
-            // 
             // metroLink1
             // 
             this.metroLink1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -97,13 +87,26 @@
             this.metroLink1.UseSelectable = true;
             this.metroLink1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.metroLink1_MouseClick);
             // 
+            // metroLabel1
+            // 
+            this.metroLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(24, 62);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(28, 19);
+            this.metroLabel1.TabIndex = 4;
+            this.metroLabel1.Text = "123";
+            this.metroLabel1.WrapToLine = true;
+            // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(388, 141);
+            this.ClientSize = new System.Drawing.Size(388, 165);
             this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.lb_Date);
             this.Controls.Add(this.metroLink1);
@@ -131,6 +134,6 @@
         private MetroFramework.Controls.MetroContextMenu metroContextMenu1;
         private System.Windows.Forms.ToolStripMenuItem cm_Delete;
         private MetroFramework.Controls.MetroLabel lb_Date;
-        private System.Windows.Forms.RichTextBox metroLabel1;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
     }
 }

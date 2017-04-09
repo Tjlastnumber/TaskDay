@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskDay.GeneralLibrary;
 using TaskDay.Model;
 
 namespace MetroUI.Test.Contorls
@@ -46,7 +47,9 @@ namespace MetroUI.Test.Contorls
             {
                 TaskEditForm form = new TaskEditForm(DailyTask);
                 form.StartPosition = FormStartPosition.CenterParent;
-                form.ShowDialog(this);
+                if(form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                }
             }
         }
 
