@@ -51,27 +51,27 @@
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 8;
             // 
-            // metroTextBox1
+            // txt_Content
             // 
             // 
             // 
             // 
             this.txt_Content.CustomButton.Image = null;
-            this.txt_Content.CustomButton.Location = new System.Drawing.Point(209, 1);
+            this.txt_Content.CustomButton.Location = new System.Drawing.Point(176, 1);
             this.txt_Content.CustomButton.Name = "";
-            this.txt_Content.CustomButton.Size = new System.Drawing.Size(33, 33);
+            this.txt_Content.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.txt_Content.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txt_Content.CustomButton.TabIndex = 1;
+            this.txt_Content.CustomButton.Text = "x";
             this.txt_Content.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txt_Content.CustomButton.UseSelectable = true;
-            this.txt_Content.CustomButton.Visible = false;
             this.txt_Content.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_Content.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txt_Content.Lines = new string[0];
             this.txt_Content.Location = new System.Drawing.Point(30, 0);
             this.txt_Content.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txt_Content.MaxLength = 32767;
-            this.txt_Content.Name = "metroTextBox1";
+            this.txt_Content.Name = "txt_Content";
             this.txt_Content.PasswordChar = '\0';
             this.txt_Content.PromptText = "内容";
             this.txt_Content.ScrollBars = System.Windows.Forms.ScrollBars.None;
@@ -79,6 +79,8 @@
             this.txt_Content.SelectionLength = 0;
             this.txt_Content.SelectionStart = 0;
             this.txt_Content.ShortcutsEnabled = true;
+            this.txt_Content.ShowButton = true;
+            this.txt_Content.ShowClearButton = true;
             this.txt_Content.Size = new System.Drawing.Size(202, 27);
             this.txt_Content.TabIndex = 2;
             this.txt_Content.UseSelectable = true;

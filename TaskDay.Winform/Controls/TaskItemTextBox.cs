@@ -12,7 +12,18 @@ namespace TaskDay.Winform.Controls
 {
     public partial class TaskItemTextBox : UserControl
     {
-        public string ContentText { set { this.txt_Content.Text = value; } get { return this.txt_Content.Text; } }
+        public event EventHandler DeleteEvent;
+
+        public string ContentText
+        {
+            set { this.txt_Content.Text = value; }
+            get { return this.txt_Content.Text; }
+        }
+
+        public void ContentDataBindings(string propertyName, object dataSource, string dataMember)
+        {
+            this.txt_Content.DataBindings.Add(propertyName, dataSource, dataMember);
+        }
 
         public TaskItemTextBox()
         {
@@ -21,6 +32,16 @@ namespace TaskDay.Winform.Controls
             this.metroLink1.MouseDown += metroTextBox1_MouseClick;
             this.metroLink1.MouseMove += metroLabel1_MouseMove;
             this.metroLink1.MouseUp += metroLabel1_MouseUp;
+
+            this.txt_Content.ButtonClick += txt_Content_ButtonClick;
+        }
+
+        void txt_Content_ButtonClick(object sender, EventArgs e)
+        {
+            if (DeleteEvent!= null)
+            {
+                DeleteEvent(this, e);
+            }
         }
 
         void metroLabel1_MouseUp(object sender, MouseEventArgs e)
