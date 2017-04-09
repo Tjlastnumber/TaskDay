@@ -73,9 +73,29 @@ namespace TaskDay.Winform.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Garbage_Closed {
+            get {
+                object obj = ResourceManager.GetObject("Garbage-Closed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Hamburg {
             get {
                 object obj = ResourceManager.GetObject("Hamburg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Text_Braille {
+            get {
+                object obj = ResourceManager.GetObject("Text-Braille", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
