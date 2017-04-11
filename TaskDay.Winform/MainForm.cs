@@ -12,6 +12,7 @@ using TaskDay.Core;
 using TaskDay.GeneralLibrary;
 using TaskDay.Winform.Common;
 using TaskDay.Model;
+using MetroFramework;
 
 namespace TaskDay.Winform
 {
@@ -20,9 +21,31 @@ namespace TaskDay.Winform
         public MainForm()
         {
             InitializeComponent();
-            
+
+            this.InitThemeAndStyle();
+
+            this.StyleManager = this.metroStyleManager;
             this.IsMdiContainer = true;
             this.FormClosing += Form1_FormClosing;
+        }
+
+
+        private void InitThemeAndStyle()
+        {
+            var themes = new EnumConverter(typeof(MetroThemeStyle)).GetStandardValues();
+            var styles = new EnumConverter(typeof(MetroColorStyle)).GetStandardValues();
+
+            this.cb_SelectTheme.DataSource = new BindingSource(themes, null);
+            this.cb_SelectStyle.DataSource = new BindingSource(styles, null);
+
+            this.cb_SelectTheme.SelectedIndexChanged += (s, e) =>
+            {
+                this.metroStyleManager.Theme = (MetroThemeStyle)this.cb_SelectTheme.SelectedItem;
+            };
+            this.cb_SelectStyle.SelectedIndexChanged += (s, e) =>
+            {
+                this.metroStyleManager.Style = (MetroColorStyle)this.cb_SelectStyle.SelectedItem;
+            };
         }
 
 
@@ -56,6 +79,7 @@ namespace TaskDay.Winform
                     foreach (var taskgroup in TaskManager.GetTaskGroups())
                     {
                         MetroFramework.Controls.MetroTabPage tabPage = new MetroFramework.Controls.MetroTabPage();
+                        tabPage.UseVisualStyleBackColor = true;
                         tabPage.Name = taskgroup.GroupId;
                         tabPage.Tag = taskgroup;
                         tabPage.Text = taskgroup.GroupName;
@@ -65,7 +89,6 @@ namespace TaskDay.Winform
                         tabPage.HorizontalScrollbarHighlightOnWheel = false;
                         tabPage.VerticalScrollbar = true;
                         tabPage.AutoScroll = true;
-
                         tabPage.PagePanelDock<TaskForm>(() =>
                         {
                             List<DailyTask> dtl = new List<DailyTask>();
@@ -76,16 +99,14 @@ namespace TaskDay.Winform
                             TaskManager.GetTaskGroup(tabPage.Name).DailyTasks = dtl;
                         });
 
-                        metroTabControl1.TabPages.Add(tabPage);
+                        metroTabControl.TabPages.Add(tabPage);
 
                         foreach (var task in taskgroup.DailyTasks)
                         {
-                            TaskForm form = new TaskForm(this, task);
-                            form.Show();
-                            tabPage.Controls.Add(form);
-                            form.FormClosed += form_FormClosed;
+                            tabPage.Controls.Add(AddTaskForm(task));
                         }
                     }
+                    this.metroStyleManager.Update();
                 });
             lc.Parent = this;
             lc.Dock = DockStyle.Fill;
@@ -93,43 +114,65 @@ namespace TaskDay.Winform
             this.Controls.SetChildIndex(lc, 0);
         }
 
+        private TaskForm AddTaskForm(DailyTask task)
+        {
+            TaskForm form = new TaskForm(this, task);
+            form.GlobalStyleManager = this.metroStyleManager;
+            form.Show();
+            form.FormClosed += form_FormClosed;
+            return form;
+        }
+
         void form_FormClosed(object sender, FormClosedEventArgs e)
         {
             var form = sender as TaskForm;
             if (TaskManager.MoveToDeletedGroup(form.DailyTask))
             {
-                TaskForm taskform = new TaskForm(this, form.DailyTask);
-                taskform.Show();
-                this.metroTabControl1.TabPages[form.DailyTask.GroupId].Controls.Add(taskform);
-                taskform.FormClosed += form_FormClosed;
+                this.metroTabControl.TabPages[form.DailyTask.GroupId].Controls.Add(AddTaskForm(form.DailyTask));
                 FileHelper.SaveJosn(TaskManager.ConvertJson());
             }
         }
 
-        private void metroButton2_Click(object sender, EventArgs e)
+        private void addTab_Click(object sender, EventArgs e)
         {
             DailyTask dt = new DailyTask();
             using (TaskEditForm editForm = new TaskEditForm(dt))
             {
+                editForm.GlobalStyleManager = this.metroStyleManager;
                 if (editForm.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    var group = this.metroTabControl1.SelectedTab.Tag as ITaskGroup;
+                    var group = this.metroTabControl.SelectedTab.Tag as ITaskGroup;
                     if (TaskManager.AddTask(group, dt))
                     {
-                        TaskForm form = new TaskForm(this, dt);
-                        form.Show();
-                        this.metroTabControl1.SelectedTab.Controls.Add(form);
-                        this.metroTabControl1.SelectedTab.ScrollControlIntoView(form);
-                        form.FormClosed += form_FormClosed;
+                        var form = AddTaskForm(dt);
+                        this.metroTabControl.SelectedTab.Controls.Add(form);
+                        this.metroTabControl.SelectedTab.ScrollControlIntoView(form);
+                        this.metroStyleManager.Update();
                         FileHelper.SaveJosn(TaskManager.ConvertJson());
                     }
                 }
             }
         }
 
-        private void metroLink1_Click(object sender, EventArgs e)
+        bool menuIsShow = false;
+        private void link_Set_Click(object sender, EventArgs e)
         {
-            this.metroTabControl1.TabPages.Clear();
+            var expand = new MetroFramework.Animation.ExpandAnimation();
+            if (menuIsShow)
+            {
+                expand.Start(this.metroPanel1, new Size(0, this.metroPanel1.Height), MetroFramework.Animation.TransitionType.EaseInOutCubic, 6);
+                menuIsShow = false;
+            }
+            else
+            {
+                expand.Start(this.metroPanel1, new Size(200, this.metroPanel1.Height), MetroFramework.Animation.TransitionType.EaseInOutCubic, 6);
+                menuIsShow = true;
+            }
+        }
+
+        private void link_Refresh_Click(object sender, EventArgs e)
+        {
+            this.metroTabControl.TabPages.Clear();
             LoadTasks();
         }
     }
