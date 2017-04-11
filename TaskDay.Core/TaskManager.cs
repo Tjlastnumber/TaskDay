@@ -82,7 +82,6 @@ namespace TaskDay.Core
                     }
                     group.DailyTasks.Add(task);
                     task.GroupId = group.GroupId;
-                    Debug.WriteLine(task.Title, "Add Task");
                     return true;
                 }
                 return false;
@@ -101,7 +100,6 @@ namespace TaskDay.Core
                     }
                     group.DailyTasks.Insert(0, task);
                     task.GroupId = group.GroupId;
-                    Debug.WriteLine(task.Title, "Add Task");
                     return true;
                 }
                 return false;
@@ -118,8 +116,6 @@ namespace TaskDay.Core
                     task.GroupId = null;
                     task.OldGroupId = null;
                 }
-
-                Debug.WriteLine(task.Title, "Remove Task");
             }
         }
 
