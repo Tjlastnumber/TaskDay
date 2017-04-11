@@ -7,11 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Components;
 
 namespace TaskDay.Winform.Controls
 {
     public partial class TaskItemTextBox : UserControl
     {
+        //public MetroStyleManager StyleManager
+        //{
+        //    get { return this.metroStyleManager; }
+        //    set
+        //    {
+        //        this.metroStyleManager = value; 
+        //    }
+        //}
+
         public event EventHandler DeleteEvent;
 
         public string ContentText
@@ -38,7 +48,7 @@ namespace TaskDay.Winform.Controls
 
         void txt_Content_ButtonClick(object sender, EventArgs e)
         {
-            if (DeleteEvent!= null)
+            if (DeleteEvent != null)
             {
                 DeleteEvent(this, e);
             }

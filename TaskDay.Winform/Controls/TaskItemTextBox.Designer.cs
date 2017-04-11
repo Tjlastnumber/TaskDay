@@ -87,6 +87,7 @@
             this.txt_Content.WaterMark = "内容";
             this.txt_Content.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txt_Content.WaterMarkFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txt_Content.ButtonClick += new MetroFramework.Controls.MetroTextBox.ButClick(this.txt_Content_ButtonClick);
             // 
             // metroLink1
             // 

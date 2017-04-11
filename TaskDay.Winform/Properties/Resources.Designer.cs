@@ -73,6 +73,16 @@ namespace TaskDay.Winform.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Command_Reset {
+            get {
+                object obj = ResourceManager.GetObject("Command-Reset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Garbage_Closed {
             get {
                 object obj = ResourceManager.GetObject("Garbage-Closed", resourceCulture);

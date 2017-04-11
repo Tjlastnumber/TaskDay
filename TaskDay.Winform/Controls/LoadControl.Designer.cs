@@ -57,6 +57,7 @@
             this.metroProgressSpinner1.Size = new System.Drawing.Size(52, 52);
             this.metroProgressSpinner1.TabIndex = 2;
             this.metroProgressSpinner1.UseSelectable = true;
+            this.metroProgressSpinner1.Value = 20;
             // 
             // LoadControl
             // 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Components;
 using TaskDay.GeneralLibrary;
 using TaskDay.Model;
 
@@ -19,6 +20,14 @@ namespace TaskDay.Winform
         private bool _isClick = false;
 
         public DailyTask DailyTask { get; private set; }
+        public MetroStyleManager GlobalStyleManager
+        {
+            get { return this.StyleManager; }
+            set 
+            {
+                this.StyleManager = value; 
+            }
+        }
 
         public TaskForm(Form mdiParent, DailyTask dt)
         {
@@ -46,8 +55,9 @@ namespace TaskDay.Winform
             if (_isClick)
             {
                 TaskEditForm form = new TaskEditForm(DailyTask);
+                form.GlobalStyleManager = this.StyleManager;
                 form.StartPosition = FormStartPosition.CenterParent;
-                if(form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                 }
             }

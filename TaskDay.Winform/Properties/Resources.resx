@@ -121,13 +121,16 @@
   <data name="Bullets" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bullets.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Garbage-Closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Garbage-Closed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Hamburg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hamburg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Text-Braille" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Text-Braille.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Garbage-Closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Garbage-Closed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Command-Reset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Command-Reset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
