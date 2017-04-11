@@ -32,6 +32,11 @@ namespace TaskDay.Model
         /// </summary>
         public string OldGroupId { get; set; }
 
+        /// <summary>
+        /// 任务标记颜色
+        /// </summary>
+        public string Color { get; set; }
+
         public DailyTask()
         {
             var dateTimeNow = DateTime.Now;

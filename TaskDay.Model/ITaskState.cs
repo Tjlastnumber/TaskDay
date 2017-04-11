@@ -20,7 +20,7 @@ namespace TaskDay.Model
         public DeletedTasks()
             : base()
         {
-            this.GroupName = "已删除";
+            this.GroupName = "已完成";
             this.GroupId = GUID; 
         }
     }
