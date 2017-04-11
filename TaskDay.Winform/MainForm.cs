@@ -129,6 +129,7 @@ namespace TaskDay.Winform
             if (TaskManager.MoveToDeletedGroup(form.DailyTask))
             {
                 this.metroTabControl.TabPages[form.DailyTask.GroupId].Controls.Add(AddTaskForm(form.DailyTask));
+                this.metroStyleManager.Update();
                 FileHelper.SaveJosn(TaskManager.ConvertJson());
             }
         }
