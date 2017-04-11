@@ -28,6 +28,7 @@ namespace TaskDay.Winform
 
         private DailyTask _dailyTask;
         private TextBox _txt_binding;
+        private List<TaskItemTextBox> _contentList = new List<TaskItemTextBox>();
 
         public TaskEditForm(DailyTask dt)
         {
@@ -47,7 +48,10 @@ namespace TaskDay.Winform
                 new EnumConverter(typeof(MetroFramework.MetroColorStyle)).GetStandardValues(), null);
             this.cb_TaskColor.SelectedIndexChanged += metroComboBox1_SelectedIndexChanged;
 
-            this.contentPanel.PagePanelDock<TaskItemTextBox>(() => { });
+            this.contentPanel.PagePanelDock<TaskItemTextBox>(list =>
+            {
+                _contentList = list.ToList();
+            });
             this.contentPanel.ControlAdded += (s, e) => this.metroStyleManager.Update();
 
             this._txt_binding.DataBindings.Add("Text", _dailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -75,9 +79,10 @@ namespace TaskDay.Winform
                 foreach (String item in this._dailyTask.Content.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     var titb = new TaskItemTextBox();
-                    titb.DeleteEvent += (s, eve) => this.contentPanel.Controls.Remove(titb);
+                    titb.DeleteEvent += titb_DeleteEvent; 
                     titb.ContentDataBindings("Text", item, "");
                     this.contentPanel.Controls.Add(titb);
+                    _contentList.Add(titb);
                 }
 
                 this.metroStyleManager.Update();
@@ -86,18 +91,28 @@ namespace TaskDay.Winform
             base.OnLoad(e);
         }
 
+        void titb_DeleteEvent(object sender, EventArgs e)
+        {
+            var titb = sender as TaskItemTextBox;
+            this.contentPanel.Controls.Remove(titb);
+            this._contentList.Remove(titb);
+        }
+
         private void link_Add_Click(object sender, EventArgs e)
         {
             var titb = new TaskItemTextBox();
-            titb.DeleteEvent += (s, eve) => this.contentPanel.Controls.Remove(titb);
+            titb.DeleteEvent += titb_DeleteEvent;
             this.contentPanel.Controls.Add(titb);
+
+            this._contentList.Add(titb);
+
             this.metroStyleManager.Update();
         }
 
         private void link_Ok_Click(object sender, EventArgs e)
         {
             string content = string.Empty;
-            foreach (TaskItemTextBox item in this.contentPanel.Controls.OfType<TaskItemTextBox>())
+            foreach (TaskItemTextBox item in _contentList)
             {
                 if (!string.IsNullOrWhiteSpace(item.ContentText))
                 {

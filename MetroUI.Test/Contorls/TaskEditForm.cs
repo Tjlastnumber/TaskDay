@@ -30,9 +30,21 @@ namespace MetroUI.Test.Contorls
 
             InitializeComponent();
 
-            this.metroPanel1.PagePanelDock<TaskItemTextBox>(() => { });
+
             this._txt_binding.DataBindings.Add("Text", _dailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
             this.txt_Title.DataBindings.Add("Text", _dailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.metroPanel1.PagePanelDock<TaskItemTextBox>(list =>
+            {
+                string content = string.Empty;
+                foreach (TaskItemTextBox item in list)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.ContentText))
+                    {
+                        content += item.ContentText + "\r\n";
+                    }
+                }
+                this._txt_binding.Text = content;
+            });
         }
 
         protected override void OnLoad(EventArgs e)
@@ -60,15 +72,6 @@ namespace MetroUI.Test.Contorls
 
         private void metroLink1_Click(object sender, EventArgs e)
         {
-            string content = string.Empty;
-            foreach (TaskItemTextBox item in this.metroPanel1.Controls.OfType<TaskItemTextBox>())
-            {
-                if (!string.IsNullOrWhiteSpace(item.ContentText))
-                {
-                    content += item.ContentText + "\r\n";
-                }
-            }
-            this._txt_binding.Text = content;
         }
     }
 }

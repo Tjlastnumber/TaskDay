@@ -19,7 +19,7 @@ namespace TaskDay.Winform.Common
         /// <param name="tabPage">当前容器</param>
         /// <param name="orderChangedCallBack">容器内控件顺序改变回调函数</param>
         /// <param name="isInsert">容器添加控件是否启用插入模式</param>
-        public static void PagePanelDock<T>(this Panel tabPage, Action orderChangedCallBack, bool isInsert = false) where T : Control
+        public static void PagePanelDock<T>(this Panel tabPage, Action<IEnumerable<T>> orderChangedCallBack, bool isInsert = false) where T : Control
         {
             List<Control> ctlList = new List<Control>();
             tabPage.ControlAdded += (s, e) =>
@@ -44,11 +44,11 @@ namespace TaskDay.Winform.Common
 
                 ctl.MouseDown += (cs, ce) =>
                 {
-
                     tabPage.Controls.SetChildIndex(ctl, 0);
                     ml = ce.Location;
                     ctl_top = ctl.Top;
                     ctl_left = ctl.Left;
+                    Debug.WriteLine(ctl_top);
                 };
 
                 ctl.MouseUp += (cs, ce) =>
@@ -77,7 +77,7 @@ namespace TaskDay.Winform.Common
                         if (ControlsTransposition(ref ctlList, tabPage, ctl, ce, offsetY))
                         {
                             isTransposition = true;
-                            orderChangedCallBack();
+                            orderChangedCallBack(ctlList.Cast<T>().ToList() ?? new List<T>());
                         }
                     }
                 };

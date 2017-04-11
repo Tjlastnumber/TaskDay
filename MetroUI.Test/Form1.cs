@@ -61,10 +61,10 @@ namespace MetroUI.Test
                         tabPage.AutoScroll = true;
                         tabPage.Theme = this.metroStyleManager1.Theme;
 
-                        tabPage.PagePanelDock<TaskForm>(() =>
+                        tabPage.PagePanelDock<TaskForm>(list =>
                         {
                             List<DailyTask> dtl = new List<DailyTask>();
-                            foreach (var ctl in tabPage.Controls.OfType<TaskForm>())
+                            foreach (var ctl in list)
                             {
                                 dtl.Add(ctl.DailyTask);
                             }

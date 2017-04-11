@@ -59,6 +59,10 @@ namespace TaskDay.Winform
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
+                    if (SaveEvent != null)
+                    {
+                        this.SaveEvent(this, null);
+                    }
                 }
             }
         }
@@ -85,5 +89,7 @@ namespace TaskDay.Winform
         {
             this.Close();
         }
+
+        public event EventHandler SaveEvent;
     }
 }

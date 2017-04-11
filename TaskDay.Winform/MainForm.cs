@@ -41,11 +41,16 @@ namespace TaskDay.Winform
             this.cb_SelectTheme.SelectedIndexChanged += (s, e) =>
             {
                 this.metroStyleManager.Theme = (MetroThemeStyle)this.cb_SelectTheme.SelectedItem;
+                AppSetManager.SetTheme(this.cb_SelectTheme.SelectedValue.ToString());
             };
             this.cb_SelectStyle.SelectedIndexChanged += (s, e) =>
             {
                 this.metroStyleManager.Style = (MetroColorStyle)this.cb_SelectStyle.SelectedItem;
+                AppSetManager.SetStyle(this.cb_SelectStyle.SelectedValue.ToString());
             };
+
+            this.cb_SelectTheme.Text = AppSetManager.AppSetting.AppTheme;
+            this.cb_SelectStyle.Text = AppSetManager.AppSetting.AppStyle;
         }
 
 
@@ -89,14 +94,15 @@ namespace TaskDay.Winform
                         tabPage.HorizontalScrollbarHighlightOnWheel = false;
                         tabPage.VerticalScrollbar = true;
                         tabPage.AutoScroll = true;
-                        tabPage.PagePanelDock<TaskForm>(() =>
+                        tabPage.PagePanelDock<TaskForm>(list =>
                         {
                             List<DailyTask> dtl = new List<DailyTask>();
-                            foreach (var ctl in tabPage.Controls.OfType<TaskForm>())
+                            foreach (var ctl in list)
                             {
                                 dtl.Add(ctl.DailyTask);
                             }
                             TaskManager.GetTaskGroup(tabPage.Name).DailyTasks = dtl;
+                            FileHelper.SaveJosn(TaskManager.ConvertJson());
                         });
 
                         metroTabControl.TabPages.Add(tabPage);
@@ -119,8 +125,14 @@ namespace TaskDay.Winform
             TaskForm form = new TaskForm(this, task);
             form.GlobalStyleManager = this.metroStyleManager;
             form.Show();
+            form.SaveEvent += form_SaveEvent;
             form.FormClosed += form_FormClosed;
             return form;
+        }
+
+        void form_SaveEvent(object sender, EventArgs e)
+        {
+            FileHelper.SaveJosn(TaskManager.ConvertJson());
         }
 
         void form_FormClosed(object sender, FormClosedEventArgs e)

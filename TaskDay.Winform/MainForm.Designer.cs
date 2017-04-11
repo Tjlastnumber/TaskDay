@@ -48,7 +48,7 @@
             // 
             this.addTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.addTab.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.addTab.Location = new System.Drawing.Point(741, 31);
+            this.addTab.Location = new System.Drawing.Point(650, 31);
             this.addTab.Name = "addTab";
             this.addTab.Size = new System.Drawing.Size(108, 23);
             this.addTab.TabIndex = 1;
@@ -62,7 +62,7 @@
             this.metroTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl.Location = new System.Drawing.Point(8, 60);
             this.metroTabControl.Name = "metroTabControl";
-            this.metroTabControl.Size = new System.Drawing.Size(841, 510);
+            this.metroTabControl.Size = new System.Drawing.Size(750, 510);
             this.metroTabControl.TabIndex = 3;
             this.metroTabControl.UseSelectable = true;
             // 
@@ -131,7 +131,7 @@
             this.link_Refresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.link_Refresh.Image = global::TaskDay.Winform.Properties.Resources.Command_Reset;
             this.link_Refresh.ImageSize = 32;
-            this.link_Refresh.Location = new System.Drawing.Point(705, 29);
+            this.link_Refresh.Location = new System.Drawing.Point(614, 29);
             this.link_Refresh.Name = "link_Refresh";
             this.link_Refresh.Size = new System.Drawing.Size(48, 23);
             this.link_Refresh.TabIndex = 6;
@@ -163,7 +163,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(857, 578);
+            this.ClientSize = new System.Drawing.Size(766, 578);
             this.Controls.Add(this.link_Refresh);
             this.Controls.Add(this.link_Set);
             this.Controls.Add(this.metroTabControl);

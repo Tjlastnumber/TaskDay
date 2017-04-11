@@ -202,5 +202,18 @@ namespace TaskDay.Core
                 return JArray.Parse(jsonString).ToString();
             }
         }
+
+        public static event EventHandler TaskListChanged;
+        public static event TaskNotifyHandler TaskNotify;
+    }
+
+    public delegate void TaskNotifyHandler(TaskNotifyEventArgs args);
+
+    public class TaskNotifyEventArgs:EventArgs
+    {
+        public TaskNotifyEventArgs()
+        {
+
+        }
     }
 }
