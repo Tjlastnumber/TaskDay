@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
-            this.metroLink1 = new MetroFramework.Controls.MetroLink();
             this.metroLink2 = new MetroFramework.Controls.MetroLink();
+            this.metroLink1 = new MetroFramework.Controls.MetroLink();
+            this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.SuspendLayout();
             // 
             // metroTabControl1
@@ -40,7 +43,19 @@
             this.metroTabControl1.Name = "metroTabControl1";
             this.metroTabControl1.Size = new System.Drawing.Size(374, 511);
             this.metroTabControl1.TabIndex = 3;
+            this.metroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTabControl1.UseSelectable = true;
+            // 
+            // metroLink2
+            // 
+            this.metroLink2.Location = new System.Drawing.Point(322, 31);
+            this.metroLink2.Name = "metroLink2";
+            this.metroLink2.Size = new System.Drawing.Size(75, 23);
+            this.metroLink2.TabIndex = 5;
+            this.metroLink2.Text = "添加任务";
+            this.metroLink2.UseSelectable = true;
+            this.metroLink2.UseStyleColors = true;
+            this.metroLink2.Click += new System.EventHandler(this.metroButton2_Click);
             // 
             // metroLink1
             // 
@@ -51,17 +66,13 @@
             this.metroLink1.Size = new System.Drawing.Size(48, 48);
             this.metroLink1.TabIndex = 4;
             this.metroLink1.UseSelectable = true;
+            this.metroLink1.UseStyleColors = true;
             this.metroLink1.Click += new System.EventHandler(this.metroLink1_Click);
             // 
-            // metroLink2
+            // metroStyleManager1
             // 
-            this.metroLink2.Location = new System.Drawing.Point(322, 31);
-            this.metroLink2.Name = "metroLink2";
-            this.metroLink2.Size = new System.Drawing.Size(75, 23);
-            this.metroLink2.TabIndex = 5;
-            this.metroLink2.Text = "添加任务";
-            this.metroLink2.UseSelectable = true;
-            this.metroLink2.Click += new System.EventHandler(this.metroButton2_Click);
+            this.metroStyleManager1.Owner = this;
+            this.metroStyleManager1.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // Form1
             // 
@@ -72,8 +83,12 @@
             this.Controls.Add(this.metroLink1);
             this.Controls.Add(this.metroTabControl1);
             this.Name = "Form1";
+            this.Resizable = false;
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.AeroShadow;
+            this.Style = MetroFramework.MetroColorStyle.Default;
             this.Text = "TaskDay";
+            this.Theme = MetroFramework.MetroThemeStyle.Dark;
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -83,6 +98,7 @@
         private MetroFramework.Controls.MetroTabControl metroTabControl1;
         private MetroFramework.Controls.MetroLink metroLink1;
         private MetroFramework.Controls.MetroLink metroLink2;
+        private MetroFramework.Components.MetroStyleManager metroStyleManager1;
     }
 }
 

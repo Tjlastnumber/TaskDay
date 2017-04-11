@@ -59,6 +59,7 @@ namespace MetroUI.Test
                         tabPage.HorizontalScrollbarHighlightOnWheel = false;
                         tabPage.VerticalScrollbar = true;
                         tabPage.AutoScroll = true;
+                        tabPage.Theme = this.metroStyleManager1.Theme;
 
                         tabPage.PagePanelDock<TaskForm>(() =>
                         {
@@ -75,6 +76,7 @@ namespace MetroUI.Test
                         foreach (var task in taskgroup.DailyTasks)
                         {
                             TaskForm form = new TaskForm(this, task);
+                            form.Theme = this.metroStyleManager1.Theme;
                             form.Show();
                             tabPage.Controls.Add(form);
                             form.FormClosed += form_FormClosed;
