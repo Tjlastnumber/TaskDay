@@ -68,6 +68,8 @@ namespace TaskDay.Winform
 
             this.StyleManager = this.metroStyleManager;
             this.metroStyleManager.Update();
+
+            this._dailyTask.Color = this.cb_TaskColor.SelectedValue.ToString();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -89,6 +91,8 @@ namespace TaskDay.Winform
             }
 
             base.OnLoad(e);
+
+            this.cb_TaskColor.Text = _dailyTask.Color ?? "Defualt";
         }
 
         void titb_DeleteEvent(object sender, EventArgs e)

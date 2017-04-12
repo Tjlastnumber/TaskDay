@@ -22,10 +22,15 @@ namespace TaskDay.Winform
         public DailyTask DailyTask { get; private set; }
         public MetroStyleManager GlobalStyleManager
         {
-            get { return this.StyleManager; }
+            get 
+            {
+                return this.StyleManager; 
+                //return this.metroStyleManager1;
+            }
             set 
             {
                 this.StyleManager = value; 
+                //this.metroStyleManager1 = value;
             }
         }
 
@@ -33,6 +38,7 @@ namespace TaskDay.Winform
         {
             InitializeComponent();
 
+            //this.StyleManager = this.metroStyleManager1;
             this.ControlBox = false;
             this.MdiParent = mdiParent;
 
