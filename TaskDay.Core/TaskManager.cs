@@ -209,11 +209,12 @@ namespace TaskDay.Core
 
     public delegate void TaskNotifyHandler(TaskNotifyEventArgs args);
 
-    public class TaskNotifyEventArgs:EventArgs
+    public class TaskNotifyEventArgs : EventArgs
     {
-        public TaskNotifyEventArgs()
+        public DailyTask _dt;
+        public TaskNotifyEventArgs(DailyTask dt)
         {
-
+            this._dt = dt;
         }
     }
 }
