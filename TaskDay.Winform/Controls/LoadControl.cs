@@ -48,7 +48,7 @@ namespace TaskDay.Winform
         {
             base.OnLoad(e);
 
-            await Task.Factory.StartNew(() => { _worker(); Thread.Sleep(2000); }).ContinueWith(
+            await Task.Factory.StartNew(() => { _worker(); Thread.Sleep(300); }).ContinueWith(
                 t =>
                 {
                     if (_endCallBack != null)

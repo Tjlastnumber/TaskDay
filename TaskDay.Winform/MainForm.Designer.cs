@@ -172,6 +172,7 @@
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "MainForm";
+            this.Opacity = 0.8D;
             this.Padding = new System.Windows.Forms.Padding(8, 60, 8, 8);
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.AeroShadow;
             this.Text = "    每日任务";

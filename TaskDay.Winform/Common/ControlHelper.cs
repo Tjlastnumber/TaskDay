@@ -81,11 +81,6 @@ namespace TaskDay.Winform.Common
                         }
                     }
                 };
-
-                ctl.SizeChanged += (cs, ce) =>
-                {
-                };
-
             };
 
             tabPage.ControlRemoved += (s, e) =>
@@ -100,6 +95,7 @@ namespace TaskDay.Winform.Common
                 foreach (var t in tabPage.Controls.OfType<T>())
                 {
                     t.Width = tabPage.ClientSize.Width - margin * 2;
+                    t.Update();
                 }
             };
         }

@@ -21,7 +21,6 @@ namespace TaskDay.Winform.Controls
         //        this.metroStyleManager = value; 
         //    }
         //}
-
         public event EventHandler DeleteEvent;
 
         public string ContentText
@@ -44,7 +43,22 @@ namespace TaskDay.Winform.Controls
             this.metroLink1.MouseUp += metroLabel1_MouseUp;
 
             this.txt_Content.ButtonClick += txt_Content_ButtonClick;
+
+            this.GotFocus += TaskItemTextBox_GotFocus;
         }
+
+        void TaskItemTextBox_GotFocus(object sender, EventArgs e)
+        {
+            this.txt_Content.Select();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            this.txt_Content.Select();
+        }
+
 
         void txt_Content_ButtonClick(object sender, EventArgs e)
         {

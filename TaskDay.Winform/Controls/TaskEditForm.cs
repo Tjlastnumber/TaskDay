@@ -107,8 +107,8 @@ namespace TaskDay.Winform
             var titb = new TaskItemTextBox();
             titb.DeleteEvent += titb_DeleteEvent;
             this.contentPanel.Controls.Add(titb);
-
             this._contentList.Add(titb);
+            this.Focus();
 
             this.metroStyleManager.Update();
         }

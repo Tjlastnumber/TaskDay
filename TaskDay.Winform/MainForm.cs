@@ -69,55 +69,57 @@ namespace TaskDay.Winform
         private void LoadTasks()
         {
             TaskManager.ClearGroups();
-            LoadControl lc = new LoadControl(
-                () =>
-                {
-                    TaskManager.ClearGroups();
-                    var rj = FileHelper.ReadJosn<List<CustomTasks>>();
-                    if (rj != null)
-                    {
-                        TaskManager.Load(rj.ToList<ITaskGroup>());
-                    }
-                },
-                () =>
-                {
-                    foreach (var taskgroup in TaskManager.GetTaskGroups())
-                    {
-                        MetroFramework.Controls.MetroTabPage tabPage = new MetroFramework.Controls.MetroTabPage();
-                        tabPage.UseVisualStyleBackColor = true;
-                        tabPage.Name = taskgroup.GroupId;
-                        tabPage.Tag = taskgroup;
-                        tabPage.Text = taskgroup.GroupName;
-                        tabPage.VerticalScrollbarSize = 4;
-                        tabPage.HorizontalScrollbar = false;
-                        tabPage.HorizontalScroll.Enabled = false;
-                        tabPage.HorizontalScrollbarHighlightOnWheel = false;
-                        tabPage.VerticalScrollbar = true;
-                        tabPage.AutoScroll = true;
-                        tabPage.PagePanelDock<TaskForm>(list =>
-                        {
-                            List<DailyTask> dtl = new List<DailyTask>();
-                            foreach (var ctl in list)
-                            {
-                                dtl.Add(ctl.DailyTask);
-                            }
-                            TaskManager.GetTaskGroup(tabPage.Name).DailyTasks = dtl;
-                            FileHelper.SaveJosn(TaskManager.ConvertJson());
-                        });
-
-                        metroTabControl.TabPages.Add(tabPage);
-
-                        foreach (var task in taskgroup.DailyTasks)
-                        {
-                            tabPage.Controls.Add(AddTaskForm(task));
-                        }
-                    }
-                    this.metroStyleManager.Update();
-                });
+            LoadControl lc = new LoadControl(LoadSource, PointTasks);
             lc.Parent = this;
             lc.Dock = DockStyle.Fill;
             this.Controls.Add(lc);
             this.Controls.SetChildIndex(lc, 0);
+        }
+
+        private void LoadSource()
+        {
+            TaskManager.ClearGroups();
+            var rj = FileHelper.ReadJosn<List<CustomTasks>>();
+            if (rj != null)
+            {
+                TaskManager.Load(rj.ToList<ITaskGroup>());
+            }
+        }
+
+        private void PointTasks()
+        {
+            foreach (var taskgroup in TaskManager.GetTaskGroups())
+            {
+                MetroFramework.Controls.MetroTabPage tabPage = new MetroFramework.Controls.MetroTabPage();
+                tabPage.UseVisualStyleBackColor = true;
+                tabPage.Name = taskgroup.GroupId;
+                tabPage.Tag = taskgroup;
+                tabPage.Text = taskgroup.GroupName;
+                tabPage.VerticalScrollbarSize = 4;
+                tabPage.HorizontalScrollbar = false;
+                tabPage.HorizontalScroll.Enabled = false;
+                tabPage.HorizontalScrollbarHighlightOnWheel = false;
+                tabPage.VerticalScrollbar = true;
+                tabPage.AutoScroll = true;
+                tabPage.PagePanelDock<TaskForm>(list =>
+                {
+                    List<DailyTask> dtl = new List<DailyTask>();
+                    foreach (var ctl in list)
+                    {
+                        dtl.Add(ctl.DailyTask);
+                    }
+                    TaskManager.GetTaskGroup(tabPage.Name).DailyTasks = dtl;
+                    FileHelper.SaveJosn(TaskManager.ConvertJson());
+                });
+
+                metroTabControl.TabPages.Add(tabPage);
+
+                foreach (var task in taskgroup.DailyTasks)
+                {
+                    tabPage.Controls.Add(AddTaskForm(task));
+                }
+            }
+            this.metroStyleManager.Update();
         }
 
         private TaskForm AddTaskForm(DailyTask task)
