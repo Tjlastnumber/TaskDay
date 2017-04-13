@@ -204,6 +204,10 @@ namespace TaskDay.Core
         }
 
         public static event EventHandler TaskListChanged;
+        
+        /// <summary>
+        /// 任务通知事件
+        /// </summary>
         public static event TaskNotifyHandler TaskNotify;
     }
 
