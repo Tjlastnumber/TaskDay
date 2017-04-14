@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDay.App.Windows", "Task
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDay.App.WindowsPhone", "TaskDay.App\TaskDay.App.WindowsPhone\TaskDay.App.WindowsPhone.csproj", "{2F0C75EA-4649-4FEE-99D2-C5960FE38858}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDay.ConsoleTest", "TaskDay.Console.Test\TaskDay.ConsoleTest.csproj", "{903DF9D0-1419-4F3E-8C9C-63E9653A008F}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		TaskDay.App\TaskDay.App.Shared\TaskDay.App.Shared.projitems*{2f0c75ea-4649-4fee-99d2-c5960fe38858}*SharedItemsImports = 4
@@ -173,6 +175,16 @@ Global
 		{2F0C75EA-4649-4FEE-99D2-C5960FE38858}.Release|x86.ActiveCfg = Release|x86
 		{2F0C75EA-4649-4FEE-99D2-C5960FE38858}.Release|x86.Build.0 = Release|x86
 		{2F0C75EA-4649-4FEE-99D2-C5960FE38858}.Release|x86.Deploy.0 = Release|x86
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Release|x64.ActiveCfg = Release|Any CPU
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,5 +202,6 @@ Global
 		{848A7318-38CF-41C6-933F-7AF117CFFC23} = {6913894D-D7BC-4E8A-A649-6FEDBE5CD7D0}
 		{54BCE8AC-6840-49D1-8EC4-16B4CC1DC41D} = {6913894D-D7BC-4E8A-A649-6FEDBE5CD7D0}
 		{2F0C75EA-4649-4FEE-99D2-C5960FE38858} = {6913894D-D7BC-4E8A-A649-6FEDBE5CD7D0}
+		{903DF9D0-1419-4F3E-8C9C-63E9653A008F} = {FA997579-FF1A-4E33-B591-D208C5FD34C2}
 	EndGlobalSection
 EndGlobal

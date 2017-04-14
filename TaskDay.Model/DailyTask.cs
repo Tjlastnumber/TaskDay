@@ -40,13 +40,13 @@ namespace TaskDay.Model
         /// <summary>
         /// 任务通知间隔
         /// </summary>
-        public TimeSpan TaskNotifySpan { get; set; }
+        public TimeSpan TaskNotifyInterval { get; set; }
 
         public DailyTask()
         {
             var dateTimeNow = DateTime.Now;
             Date = new DateTime(dateTimeNow.Year, dateTimeNow.Month, dateTimeNow.Day, dateTimeNow.Hour, dateTimeNow.Minute, dateTimeNow.Second);
-            TaskNotifySpan = new TimeSpan(0, 15, 0);
+            TaskNotifyInterval = new TimeSpan(0, 15, 0);
         }
     }
 }

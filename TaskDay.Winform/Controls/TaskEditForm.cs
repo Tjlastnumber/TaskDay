@@ -44,10 +44,6 @@ namespace TaskDay.Winform
 
             this.StyleManager = this.metroStyleManager;
 
-            this.cb_TaskColor.DataSource = new BindingSource(
-                new EnumConverter(typeof(MetroFramework.MetroColorStyle)).GetStandardValues(), null);
-            this.cb_TaskColor.SelectedIndexChanged += metroComboBox1_SelectedIndexChanged;
-
             this.contentPanel.PagePanelDock<TaskItemTextBox>(list =>
             {
                 _contentList = list.ToList();
@@ -56,20 +52,6 @@ namespace TaskDay.Winform
 
             this._txt_binding.DataBindings.Add("Text", _dailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
             this.txt_Title.DataBindings.Add("Text", _dailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
-        }
-
-        void metroComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var theme = this.metroStyleManager.Theme;
-            this.metroStyleManager = new MetroStyleManager();
-            this.metroStyleManager.Owner = this;
-            this.metroStyleManager.Style = (MetroColorStyle)this.cb_TaskColor.SelectedItem;
-            this.metroStyleManager.Theme = theme;
-
-            this.StyleManager = this.metroStyleManager;
-            this.metroStyleManager.Update();
-
-            this._dailyTask.Color = this.cb_TaskColor.SelectedValue.ToString();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -91,8 +73,6 @@ namespace TaskDay.Winform
             }
 
             base.OnLoad(e);
-
-            this.cb_TaskColor.Text = _dailyTask.Color ?? "Defualt";
         }
 
         void titb_DeleteEvent(object sender, EventArgs e)
@@ -100,6 +80,7 @@ namespace TaskDay.Winform
             var titb = sender as TaskItemTextBox;
             this.contentPanel.Controls.Remove(titb);
             this._contentList.Remove(titb);
+            titb = null;
         }
 
         private void link_Add_Click(object sender, EventArgs e)
@@ -124,6 +105,8 @@ namespace TaskDay.Winform
                 }
             }
             this._txt_binding.Text = content;
+
+            this._dailyTask.TaskNotifyInterval = new TimeSpan(0, 0, Convert.ToInt32(this.metroTextBox1.Text));
         }
     }
 }

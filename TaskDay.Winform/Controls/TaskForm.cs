@@ -16,7 +16,6 @@ namespace TaskDay.Winform
 {
     public partial class TaskForm : MetroFramework.Forms.MetroForm
     {
-
         private bool _isClick = false;
 
         public DailyTask DailyTask { get; private set; }

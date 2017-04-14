@@ -7,6 +7,7 @@ using TaskDay.Core;
 using TaskDay.Model;
 using TaskDay.GeneralLibrary;
 using TaskDay.Winform.Common;
+using System.Diagnostics;
 
 namespace MetroUI.Test
 {
@@ -102,7 +103,7 @@ namespace MetroUI.Test
             }
         }
 
-        private void metroButton2_Click(object sender, EventArgs e)
+        async private void metroButton2_Click(object sender, EventArgs e)
         {
             DailyTask dt = new DailyTask();
             using (TaskEditForm editForm = new TaskEditForm(dt))
@@ -121,6 +122,19 @@ namespace MetroUI.Test
                     }
                 }
             }
+
+            NotifyMessage m = new NotifyMessage();
+            m.Title = "Test";
+            m.NotifyInterval = new TimeSpan(0, 0, 3);
+            NotifySchedule nm = new NotifySchedule();
+            nm.AddNotify(m, () =>
+            {
+                Debug.WriteLine(m.Title);
+                MetroFramework.Forms.MetroTaskWindow mtw = new MetroFramework.Forms.MetroTaskWindow();
+                mtw.Text = m.Title;
+                mtw.Show(this);
+            });
+
         }
 
         private void metroLink1_Click(object sender, EventArgs e)

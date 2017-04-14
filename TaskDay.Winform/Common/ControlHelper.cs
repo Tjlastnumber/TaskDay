@@ -87,7 +87,8 @@ namespace TaskDay.Winform.Common
             {
                 Control ctl = e.Control;
                 ctlList.Remove(ctl);
-                OrderControls(tabPage, ctlList, ctl);
+                ctl = null;
+                OrderControls(tabPage, ctlList, null);
             };
 
             tabPage.SizeChanged += (s, e) =>

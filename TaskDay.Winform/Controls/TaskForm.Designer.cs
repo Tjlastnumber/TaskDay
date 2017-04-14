@@ -65,12 +65,12 @@
             this.metroContextMenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cm_Delete});
             this.metroContextMenu1.Name = "metroContextMenu1";
-            this.metroContextMenu1.Size = new System.Drawing.Size(101, 26);
+            this.metroContextMenu1.Size = new System.Drawing.Size(153, 48);
             // 
             // cm_Delete
             // 
             this.cm_Delete.Name = "cm_Delete";
-            this.cm_Delete.Size = new System.Drawing.Size(100, 22);
+            this.cm_Delete.Size = new System.Drawing.Size(152, 22);
             this.cm_Delete.Text = "删除";
             this.cm_Delete.Click += new System.EventHandler(this.cm_Delete_Click);
             // 

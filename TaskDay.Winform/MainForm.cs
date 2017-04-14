@@ -142,13 +142,15 @@ namespace TaskDay.Winform
             var form = sender as TaskForm;
             if (TaskManager.MoveToDeletedGroup(form.DailyTask))
             {
-                this.metroTabControl.TabPages[form.DailyTask.GroupId].Controls.Add(AddTaskForm(form.DailyTask));
+                this.metroTabControl.TabPages[form.DailyTask.OldGroupId].Controls.Remove(form);
+                this.metroTabControl.TabPages[form.DailyTask.GroupId].Controls.Add(form);
                 this.metroStyleManager.Update();
                 FileHelper.SaveJosn(TaskManager.ConvertJson());
             }
         }
 
-        private void addTab_Click(object sender, EventArgs e)
+        static NotifySchedule _notifyManager = new NotifySchedule();
+        private async void addTab_Click(object sender, EventArgs e)
         {
             DailyTask dt = new DailyTask();
             using (TaskEditForm editForm = new TaskEditForm(dt))
@@ -165,6 +167,13 @@ namespace TaskDay.Winform
                         this.metroStyleManager.Update();
                         FileHelper.SaveJosn(TaskManager.ConvertJson());
                     }
+
+                    _notifyManager.AddNotify(new NotifyMessage(dt.TaskNotifyInterval) { Title = dt.Title, Message = dt.Content }, () =>
+                    {
+                        MetroFramework.Forms.MetroTaskWindow tw = new MetroFramework.Forms.MetroTaskWindow();
+                        tw.Text = dt.Title;
+                        tw.Show(this);
+                    });
                 }
             }
         }
