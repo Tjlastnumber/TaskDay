@@ -6,24 +6,29 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TaskDay.Core
+namespace TaskDay.Core.Common
 {
     public class Timer
     {
         private Action _callback;
         private int _period;
-        private int dueTime;
 
         [SecuritySafeCritical]
-        public Timer(Action callback, int dueTime, int period)
+        public Timer(Action callback, int period)
         {
             if (callback == null)
             {
                 throw new ArgumentNullException("callback");
             }
 
+            _period = period;
             _callback = callback;
             this.Start();
+        }
+
+        public void Change(int period)
+        {
+            this._period = period;
         }
 
         private void Start()
@@ -31,12 +36,13 @@ namespace TaskDay.Core
             Task.Factory.StartNew(
                 () =>
                 {
-                    while (true)
-                    {
-                        _callback();
-                    }
+                    _callback();
                 }
-                );
+                ).ContinueWith(t =>
+                {
+                    Task.Delay(_period).Wait();
+                    Start();
+                });
         }
     }
 }
