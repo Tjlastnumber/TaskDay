@@ -8,13 +8,16 @@ using System.Windows;
 using Newtonsoft.Json.Linq;
 using TaskDay.Model;
 using System.Reflection;
+using TaskDay.Core.Common;
 
 namespace TaskDay.Core
 {
     public static class TaskManager
     {
-        static object _manager_lock = new object();
-        static List<ITaskGroup> _taskGroups;
+        private static object _manager_lock = new object();
+
+        private static List<ITaskGroup> _taskGroups;
+
         internal static List<ITaskGroup> TaskGroups
         {
             get
@@ -28,8 +31,10 @@ namespace TaskDay.Core
             }
             private set { _taskGroups = value; }
         }
+        
+        #region Groups
 
-        public static List<ITaskGroup> Init()
+        public static List<ITaskGroup> InitGroup()
         {
             lock (_manager_lock)
             {
@@ -45,7 +50,7 @@ namespace TaskDay.Core
             }
         }
 
-        public static void Load(List<ITaskGroup> taskGroups)
+        public static void LoadGroup(List<ITaskGroup> taskGroups)
         {
             lock (_manager_lock)
             {
@@ -70,11 +75,50 @@ namespace TaskDay.Core
             Debug.WriteLine(group.GroupName, "Add Group");
         }
 
+        public static bool MoveToDeletedGroup(DailyTask dailyTask)
+        {
+            lock (_manager_lock)
+            {
+                var fromGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(dailyTask.GroupId));
+                var deletedGroup = GetTaskGroup(DeletedTasks.GUID);
+                if (fromGroup != null && deletedGroup != null)
+                {
+                    if (fromGroup.DailyTasks.Remove(dailyTask))
+                    {
+                        dailyTask.OldGroupId = fromGroup.GroupId;
+                        InsertTask(deletedGroup, dailyTask);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        public static List<ITaskGroup> GetTaskGroups()
+        {
+            lock (_manager_lock)
+            {
+                return TaskGroups;
+            }
+        }
+
+        public static ITaskGroup GetTaskGroup(string groupId)
+        {
+            lock (_manager_lock)
+            {
+                return TaskGroups.SingleOrDefault(p => p.GroupId.Equals(groupId));
+            }
+        }
+
+        #endregion
+
+        #region Task
+
         public static bool AddTask(ITaskGroup group, DailyTask task)
         {
             lock (_manager_lock)
             {
-                if (!string.IsNullOrWhiteSpace(task.Title) || !string.IsNullOrWhiteSpace(task.Content))
+                if (!task.Title.IsNullOrWhiteSpace() || !task.Content.IsNullOrWhiteSpace())
                 {
                     if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId)) == null)
                     {
@@ -92,7 +136,7 @@ namespace TaskDay.Core
         {
             lock (_manager_lock)
             {
-                if (!string.IsNullOrWhiteSpace(task.Title) || !string.IsNullOrWhiteSpace(task.Content))
+                if (!task.Title.IsNullOrWhiteSpace() || !task.Content.IsNullOrWhiteSpace())
                 {
                     if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId)) == null)
                     {
@@ -150,40 +194,9 @@ namespace TaskDay.Core
             }
         }
 
-        public static bool MoveToDeletedGroup(DailyTask dailyTask)
-        {
-            lock (_manager_lock)
-            {
-                var fromGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(dailyTask.GroupId));
-                var deletedGroup = GetTaskGroup(DeletedTasks.GUID);
-                if (fromGroup != null && deletedGroup != null)
-                {
-                    if (fromGroup.DailyTasks.Remove(dailyTask))
-                    {
-                        dailyTask.OldGroupId = fromGroup.GroupId;
-                        InsertTask(deletedGroup, dailyTask);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
+        #endregion
 
-        public static List<ITaskGroup> GetTaskGroups()
-        {
-            lock (_manager_lock)
-            {
-                return TaskGroups;
-            }
-        }
-
-        public static ITaskGroup GetTaskGroup(string groupId)
-        {
-            lock (_manager_lock)
-            {
-                return TaskGroups.SingleOrDefault(p => p.GroupId.Equals(groupId));
-            }
-        }
+        #region Convert Josn
 
         public static string ConvertJson()
         {
@@ -203,8 +216,10 @@ namespace TaskDay.Core
             }
         }
 
-        public static event EventHandler TaskListChanged;
+        #endregion
         
+        public static event EventHandler TaskListChanged;
+
         /// <summary>
         /// 任务通知事件
         /// </summary>

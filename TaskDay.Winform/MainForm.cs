@@ -82,7 +82,7 @@ namespace TaskDay.Winform
             var rj = FileHelper.ReadJosn<List<CustomTasks>>();
             if (rj != null)
             {
-                TaskManager.Load(rj.ToList<ITaskGroup>());
+                TaskManager.LoadGroup(rj.ToList<ITaskGroup>());
             }
         }
 

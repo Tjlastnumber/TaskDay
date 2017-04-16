@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using TaskDay.Winform.Common;
 using TaskDay.Winform.Controls;
 using TaskDay.Model;
+using TaskDay.Core.Common;
 using MetroFramework;
 using MetroFramework.Components;
 
@@ -63,7 +64,7 @@ namespace TaskDay.Winform
                 foreach (String item in this._dailyTask.Content.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     var titb = new TaskItemTextBox();
-                    titb.DeleteEvent += titb_DeleteEvent; 
+                    titb.DeleteEvent += titb_DeleteEvent;
                     titb.ContentDataBindings("Text", item, "");
                     this.contentPanel.Controls.Add(titb);
                     _contentList.Add(titb);
@@ -99,7 +100,7 @@ namespace TaskDay.Winform
             string content = string.Empty;
             foreach (TaskItemTextBox item in _contentList)
             {
-                if (!string.IsNullOrWhiteSpace(item.ContentText))
+                if (item.ContentText.IsNullOrWhiteSpace())
                 {
                     content += item.ContentText + "\r\n";
                 }

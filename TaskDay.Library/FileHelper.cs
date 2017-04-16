@@ -6,6 +6,7 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using TaskDay.Core.Common;
 
 namespace TaskDay.GeneralLibrary
 {
@@ -26,7 +27,7 @@ namespace TaskDay.GeneralLibrary
 
         public static T ReadJosn<T>(string path = "")
         {
-            var jsonPath = !string.IsNullOrWhiteSpace(path) ? path : FilePath;
+            var jsonPath = !path.IsNullOrWhiteSpace() ? path : FilePath;
             if (File.Exists(jsonPath))
             {
                 string jsonString = File.ReadAllText(jsonPath);
