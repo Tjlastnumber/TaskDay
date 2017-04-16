@@ -13,16 +13,22 @@ namespace TaskDay.ConsoleTest
     {
         static void Main(string[] args)
         {
-            Timer_Test();
+            TaskDay.Core.Timer timer = Timer_Test();
+            int t = Convert.ToInt32(Console.ReadLine());
+            timer.Change(t);
             Console.ReadLine();
         }
 
-        private static void Timer_Test()
+        private static TaskDay.Core.Timer Timer_Test()
         {
             int i = 0;
-            TaskDay.Core.Timer timer = new Core.Timer(()=> {
-                Console.WriteLine(i++);
-            }, 3, 10);
+            TaskDay.Core.Timer timer = new Core.Timer(() =>
+            {
+                Console.WriteLine(DateTime.Now.ToString() + ": " + (i++).ToString());
+                Console.WriteLine(Thread.GetDomainID().ToString());
+            }, 10000);
+
+            return timer;
         }
 
         private static void NotifySchedule_Test()
