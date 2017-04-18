@@ -113,6 +113,13 @@ namespace TaskDay.Core
         #endregion
 
         #region Task
+        public static void AddTasks(ITaskGroup group, ICollection<DailyTask> dailyTasks)
+        {
+            foreach (var dailyTask in dailyTasks)
+            {
+                AddTask(group, dailyTask);
+            }
+        }
 
         public static bool AddTask(ITaskGroup group, DailyTask task)
         {

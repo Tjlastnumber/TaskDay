@@ -123,7 +123,6 @@ namespace TaskDay.Core
         }
         #endregion
 
-
         #region running & sending
 
         private static IEnumerable<NotifySchedule> CalculateNextRun(IEnumerable<NotifySchedule> schedules)
