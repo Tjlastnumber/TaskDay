@@ -26,6 +26,10 @@ namespace TaskDay.Core
 
         public string Name { get; internal set; }
 
+        internal object Reentrant { get; set; }
+
+        internal ICollection<NotifySchedule> AdditionalSchedules { get; set; }
+
         public NotifySchedule() { }
 
         public NotifySchedule(Action action) : this(new[] { action }) { }
@@ -33,12 +37,16 @@ namespace TaskDay.Core
         public NotifySchedule(IEnumerable<Action> actions)
         {
             this.Notifies = actions.ToList();
+            AdditionalSchedules = new List<NotifySchedule>();
+            PendingRunOnce = false;
+            Reentrant = null;
         }
 
         public void ToRunOnceAt(DateTime time)
         {
             CalculateNextRun = x => (DelayRunFor > TimeSpan.Zero ? time.Add(DelayRunFor) : time);
             PendingRunOnce = true;
+            Reentrant = this;
         }
 
         public void ToRunEvery(TimeSpan interval)
@@ -46,8 +54,6 @@ namespace TaskDay.Core
             DelayRunFor = interval;
             CalculateNextRun = x => x.Add(DelayRunFor);
         }
-
-
 
         public NotifySchedule(INotifyMessage message, Action worker, TaskScheduler ts)
         {
@@ -71,11 +77,30 @@ namespace TaskDay.Core
             AddNotify(message, worker, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-
-        public void RemoveNotify(INotifyMessage message)
+        /// <summary>
+        /// Assigns a name to this job schedule.
+        /// </summary>
+        /// <param name="name">Name to assign</param>
+        public NotifySchedule WithName(string name)
         {
+            Name = name;
+            return this;
         }
 
+
+        public void Execute()
+        {
+            JobManager.SendNotify(this);
+        }
+
+        /// <summary>
+        /// Sets this job schedule as non reentrant.
+        /// </summary>
+        public NotifySchedule NonReentrant()
+        {
+            Reentrant = Reentrant ?? new object();
+            return this;
+        }
     }
 
     public class NotifyMessage : INotifyMessage
