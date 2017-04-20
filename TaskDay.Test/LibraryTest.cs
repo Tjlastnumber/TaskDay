@@ -37,7 +37,7 @@ namespace TaskDay.Test
                 },
             });
 
-            TaskManager.AddGroup(new DeletedTasks
+            TaskManager.AddGroup(new FinishTasks
             {
                 DailyTasks = new System.Collections.Generic.List<DailyTask>()
                 {

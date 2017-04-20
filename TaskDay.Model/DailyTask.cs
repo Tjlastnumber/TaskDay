@@ -7,6 +7,12 @@ namespace TaskDay.Model
 {
     public class DailyTask
     {
+        private string _id;
+        public string Id
+        {
+            get { return _id ?? (_id = Guid.NewGuid().ToString()); }
+            set { _id = value; }
+        }
         /// <summary>
         /// 标题
         /// </summary>

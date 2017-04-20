@@ -93,7 +93,7 @@ namespace MetroUI.Test
         void form_FormClosed(object sender, FormClosedEventArgs e)
         {
             var form = sender as TaskForm;
-            if (TaskManager.MoveToDeletedGroup(form.DailyTask))
+            if (TaskManager.MoveToFinishGroup(form.DailyTask))
             {
                 TaskForm taskform = new TaskForm(this, form.DailyTask);
                 taskform.Show();
@@ -127,14 +127,6 @@ namespace MetroUI.Test
             m.Title = "Test";
             m.NotifyInterval = new TimeSpan(0, 0, 3);
             NotifySchedule nm = new NotifySchedule();
-            nm.AddNotify(m, () =>
-            {
-                Debug.WriteLine(m.Title);
-                MetroFramework.Forms.MetroTaskWindow mtw = new MetroFramework.Forms.MetroTaskWindow();
-                mtw.Text = m.Title;
-                mtw.Show(this);
-            });
-
         }
 
         private void metroLink1_Click(object sender, EventArgs e)

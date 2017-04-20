@@ -13,7 +13,7 @@ namespace MetroUI.Test
         public TestModel()
         {
             CustomTasks doingGroup = new DoingTasks();
-            CustomTasks deleteGroup = new DeletedTasks();
+            CustomTasks deleteGroup = new FinishTasks();
 
             TaskManager.AddGroup(doingGroup);
             TaskManager.AddGroup(deleteGroup);

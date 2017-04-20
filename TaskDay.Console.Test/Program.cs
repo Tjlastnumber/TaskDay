@@ -81,34 +81,5 @@ namespace TaskDay.ConsoleTest
 
             return timer;
         }
-
-        private static void NotifySchedule_Test()
-        {
-            NotifySchedule nm = new NotifySchedule();
-            NotifyMessage message = new NotifyMessage(3) { Title = "m1", Message = "TestNotify" };
-            NotifyMessage message1 = new NotifyMessage(2) { Title = "m2", Message = "TestNotify" };
-            NotifyMessage message2 = new NotifyMessage(10) { Title = "m3", Message = "TestNotify" };
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            nm.AddNotify(message, () =>
-            {
-                Console.WriteLine("消息：{0}， 提醒间隔{1}", message.Title, sw.Elapsed.TotalMilliseconds);
-            }, TaskScheduler.Current);
-            nm.AddNotify(message2, () =>
-            {
-                Console.WriteLine("消息：{0}， 提醒间隔{1}", message2.Title, sw.Elapsed.TotalMilliseconds);
-            }, TaskScheduler.Current);
-            nm.AddNotify(message1, () =>
-            {
-                Console.WriteLine("消息：{0}， 提醒间隔{1}", message1.Title, sw.Elapsed.TotalMilliseconds);
-            }, TaskScheduler.Current);
-
-            Console.WriteLine("主线程运行结束...");
-            Console.ReadLine();
-        }
-
-        private static void doWork()
-        {
-        }
     }
 }

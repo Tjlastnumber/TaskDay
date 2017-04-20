@@ -14,10 +14,10 @@ namespace TaskDay.Model
         List<DailyTask> DailyTasks { get; set; }
     }
 
-    public class DeletedTasks : CustomTasks
+    public class FinishTasks : CustomTasks
     {
         public static readonly string GUID = "A48D4811-952D-4142-A1B8-E5EEA8B639CE";
-        public DeletedTasks()
+        public FinishTasks()
             : base()
         {
             this.GroupName = "已完成";
