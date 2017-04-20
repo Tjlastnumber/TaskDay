@@ -18,6 +18,7 @@ namespace TaskDay.Winform
 {
     public partial class MainForm : MetroFramework.Forms.MetroForm
     {
+        Registry registry = new Registry();
         public MainForm()
         {
             InitializeComponent();
@@ -27,6 +28,31 @@ namespace TaskDay.Winform
             this.StyleManager = this.metroStyleManager;
             this.IsMdiContainer = true;
             this.FormClosing += Form1_FormClosing;
+            TaskManager.InitGroup();
+            TaskManager.TaskListChanged += TaskManager_TaskListChanged;
+        }
+
+        void TaskManager_TaskListChanged(DailyTask task, TaskChangedEventArgs args)
+        {
+            switch (args.ChangedType)
+            {
+                case TaskChangedType.Insert:
+                case TaskChangedType.Add:
+                    if (task.TaskNotifyInterval != null && task.TaskNotifyInterval.TotalMilliseconds > 0)
+                    {
+                        NotifySchedule ns = new NotifySchedule(task.Id, () => { TaskNotifyForm(task); });
+                        JobManager.AddJob(ns, s => s.ToRunEvery(task.TaskNotifyInterval));
+                    }
+                    break;
+                case TaskChangedType.Remove:
+                    JobManager.RemoveJob(task.Id);
+                    break;
+                case TaskChangedType.Move:
+                    break;
+                default:
+                    break;
+            }
+            FileHelper.SaveJosn(TaskManager.ConvertJson());
         }
 
 
@@ -64,6 +90,21 @@ namespace TaskDay.Winform
             base.OnLoad(e);
 
             LoadTasks();
+
+        }
+
+        private void LoadNotifies()
+        {
+            Registry r = new Registry();
+            foreach (var group in TaskManager.GetTaskGroups().Where(p => p.GroupId != FinishTasks.GUID))
+            {
+                foreach (var task in group.DailyTasks.Where(p => p.TaskNotifyInterval != null && p.TaskNotifyInterval.TotalMilliseconds > 0))
+                {
+                    r.NotifySchedule(() => { TaskNotifyForm(task); }, task.Id).ToRunEvery(task.TaskNotifyInterval);
+                }
+            }
+
+            JobManager.Initialize(r);
         }
 
         private void LoadTasks()
@@ -83,6 +124,7 @@ namespace TaskDay.Winform
             if (rj != null)
             {
                 TaskManager.LoadGroup(rj.ToList<ITaskGroup>());
+                LoadNotifies();
             }
         }
 
@@ -140,16 +182,14 @@ namespace TaskDay.Winform
         void form_FormClosed(object sender, FormClosedEventArgs e)
         {
             var form = sender as TaskForm;
-            if (TaskManager.MoveToDeletedGroup(form.DailyTask))
+            if (TaskManager.RemoveTask(form.DailyTask))
             {
                 this.metroTabControl.TabPages[form.DailyTask.OldGroupId].Controls.Remove(form);
-                this.metroTabControl.TabPages[form.DailyTask.GroupId].Controls.Add(form);
                 this.metroStyleManager.Update();
                 FileHelper.SaveJosn(TaskManager.ConvertJson());
             }
         }
 
-        static NotifySchedule _notifyManager = new NotifySchedule();
         private async void addTab_Click(object sender, EventArgs e)
         {
             DailyTask dt = new DailyTask();
@@ -165,17 +205,23 @@ namespace TaskDay.Winform
                         this.metroTabControl.SelectedTab.Controls.Add(form);
                         this.metroTabControl.SelectedTab.ScrollControlIntoView(form);
                         this.metroStyleManager.Update();
-                        FileHelper.SaveJosn(TaskManager.ConvertJson());
                     }
-
-                    _notifyManager.AddNotify(new NotifyMessage(dt.TaskNotifyInterval) { Title = dt.Title, Message = dt.Content }, () =>
-                    {
-                        MetroFramework.Forms.MetroTaskWindow tw = new MetroFramework.Forms.MetroTaskWindow();
-                        tw.Text = dt.Title;
-                        tw.Show(this);
-                    });
                 }
             }
+        }
+
+        private void TaskNotifyForm(DailyTask dt)
+        {
+            this.Invoke(new Action(() =>
+            {
+                MetroFramework.Forms.MetroTaskWindow tw = new MetroFramework.Forms.MetroTaskWindow();
+                tw.Text = dt.Title;
+                tw.Movable = false;
+                tw.StyleManager = new MetroFramework.Components.MetroStyleManager();
+                tw.StyleManager.Style = this.Style;
+                tw.StyleManager.Theme = this.Theme;
+                tw.Show(this);
+            }));
         }
 
         bool menuIsShow = false;

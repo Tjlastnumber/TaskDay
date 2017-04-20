@@ -36,7 +36,8 @@
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroLink1 = new MetroFramework.Controls.MetroLink();
             this.metroToolTip1 = new MetroFramework.Components.MetroToolTip();
-            this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
+            this.metroDateTime1 = new MetroFramework.Controls.MetroDateTime();
+            this.metroComboBox1 = new MetroFramework.Controls.MetroComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,7 +82,7 @@
             this.link_Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.link_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.link_Ok.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.link_Ok.Location = new System.Drawing.Point(339, 435);
+            this.link_Ok.Location = new System.Drawing.Point(360, 452);
             this.link_Ok.Name = "link_Ok";
             this.link_Ok.Size = new System.Drawing.Size(75, 37);
             this.link_Ok.TabIndex = 2;
@@ -102,7 +103,7 @@
             this.contentPanel.HorizontalScrollbarSize = 8;
             this.contentPanel.Location = new System.Drawing.Point(23, 78);
             this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Size = new System.Drawing.Size(391, 288);
+            this.contentPanel.Size = new System.Drawing.Size(412, 305);
             this.contentPanel.TabIndex = 3;
             this.contentPanel.UseStyleColors = true;
             this.contentPanel.VerticalScrollbar = true;
@@ -113,7 +114,7 @@
             // link_Add
             // 
             this.link_Add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.link_Add.Location = new System.Drawing.Point(339, 49);
+            this.link_Add.Location = new System.Drawing.Point(360, 49);
             this.link_Add.Name = "link_Add";
             this.link_Add.Size = new System.Drawing.Size(75, 23);
             this.link_Add.TabIndex = 4;
@@ -131,7 +132,7 @@
             this.metroLink1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroLink1.Image = global::TaskDay.Winform.Properties.Resources.Tab_History;
             this.metroLink1.ImageSize = 32;
-            this.metroLink1.Location = new System.Drawing.Point(23, 372);
+            this.metroLink1.Location = new System.Drawing.Point(23, 395);
             this.metroLink1.Name = "metroLink1";
             this.metroLink1.Size = new System.Drawing.Size(44, 23);
             this.metroLink1.TabIndex = 5;
@@ -143,43 +144,34 @@
             this.metroToolTip1.StyleManager = null;
             this.metroToolTip1.Theme = MetroFramework.MetroThemeStyle.Light;
             // 
-            // metroTextBox1
+            // metroDateTime1
             // 
+            this.metroDateTime1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.metroDateTime1.Location = new System.Drawing.Point(67, 392);
+            this.metroDateTime1.MinimumSize = new System.Drawing.Size(0, 29);
+            this.metroDateTime1.Name = "metroDateTime1";
+            this.metroDateTime1.Size = new System.Drawing.Size(200, 29);
+            this.metroDateTime1.TabIndex = 6;
             // 
+            // metroComboBox1
             // 
-            // 
-            this.metroTextBox1.CustomButton.Image = null;
-            this.metroTextBox1.CustomButton.Location = new System.Drawing.Point(53, 1);
-            this.metroTextBox1.CustomButton.Name = "";
-            this.metroTextBox1.CustomButton.Size = new System.Drawing.Size(21, 21);
-            this.metroTextBox1.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroTextBox1.CustomButton.TabIndex = 1;
-            this.metroTextBox1.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.metroTextBox1.CustomButton.UseSelectable = true;
-            this.metroTextBox1.CustomButton.Visible = false;
-            this.metroTextBox1.Lines = new string[0];
-            this.metroTextBox1.Location = new System.Drawing.Point(73, 372);
-            this.metroTextBox1.MaxLength = 32767;
-            this.metroTextBox1.Name = "metroTextBox1";
-            this.metroTextBox1.PasswordChar = '\0';
-            this.metroTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.metroTextBox1.SelectedText = "";
-            this.metroTextBox1.SelectionLength = 0;
-            this.metroTextBox1.SelectionStart = 0;
-            this.metroTextBox1.ShortcutsEnabled = true;
-            this.metroTextBox1.Size = new System.Drawing.Size(75, 23);
-            this.metroTextBox1.TabIndex = 7;
-            this.metroTextBox1.UseSelectable = true;
-            this.metroTextBox1.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.metroTextBox1.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroComboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.metroComboBox1.FormattingEnabled = true;
+            this.metroComboBox1.ItemHeight = 23;
+            this.metroComboBox1.Location = new System.Drawing.Point(67, 427);
+            this.metroComboBox1.Name = "metroComboBox1";
+            this.metroComboBox1.Size = new System.Drawing.Size(200, 29);
+            this.metroComboBox1.TabIndex = 7;
+            this.metroComboBox1.UseSelectable = true;
             // 
             // TaskEditForm
             // 
             this.AcceptButton = this.link_Ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 481);
-            this.Controls.Add(this.metroTextBox1);
+            this.ClientSize = new System.Drawing.Size(458, 498);
+            this.Controls.Add(this.metroComboBox1);
+            this.Controls.Add(this.metroDateTime1);
             this.Controls.Add(this.metroLink1);
             this.Controls.Add(this.link_Add);
             this.Controls.Add(this.contentPanel);
@@ -209,7 +201,8 @@
         private MetroFramework.Components.MetroStyleManager metroStyleManager;
         private MetroFramework.Controls.MetroLink metroLink1;
         private MetroFramework.Components.MetroToolTip metroToolTip1;
-        private MetroFramework.Controls.MetroTextBox metroTextBox1;
+        private MetroFramework.Controls.MetroDateTime metroDateTime1;
+        private MetroFramework.Controls.MetroComboBox metroComboBox1;
 
     }
 }

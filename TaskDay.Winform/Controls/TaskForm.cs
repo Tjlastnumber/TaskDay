@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Components;
+using TaskDay.Core;
 using TaskDay.GeneralLibrary;
 using TaskDay.Model;
 
@@ -24,12 +25,10 @@ namespace TaskDay.Winform
             get 
             {
                 return this.StyleManager; 
-                //return this.metroStyleManager1;
             }
             set 
             {
                 this.StyleManager = value; 
-                //this.metroStyleManager1 = value;
             }
         }
 
@@ -37,7 +36,6 @@ namespace TaskDay.Winform
         {
             InitializeComponent();
 
-            //this.StyleManager = this.metroStyleManager1;
             this.ControlBox = false;
             this.MdiParent = mdiParent;
 
@@ -48,7 +46,18 @@ namespace TaskDay.Winform
             this.lb_Title.DataBindings.Add("Text", DailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
             this.lb_Date.DataBindings.Add("Text", DailyTask, "Date", true, DataSourceUpdateMode.OnPropertyChanged);
             this.metroLabel1.DataBindings.Add("Text", DailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
+
+            foreach (var group in TaskManager.GetTaskGroups())
+            {
+                var menuItem = new ToolStripMenuItem(group.GroupName);
+                menuItem.Click += (s, e) =>
+                {
+                    TaskManager.MoveTask(group.GroupId, this.DailyTask);
+                };
+                this.groupMenu.Items.Insert(0, menuItem);
+            }
         }
+
 
         void TaskForm_MouseDown(object sender, MouseEventArgs e)
         {

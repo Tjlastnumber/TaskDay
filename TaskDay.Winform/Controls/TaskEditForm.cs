@@ -13,6 +13,8 @@ using TaskDay.Model;
 using TaskDay.Core.Common;
 using MetroFramework;
 using MetroFramework.Components;
+using TaskDay.Core.ViewModel;
+using MetroFramework.Controls;
 
 namespace TaskDay.Winform
 {
@@ -53,6 +55,7 @@ namespace TaskDay.Winform
 
             this._txt_binding.DataBindings.Add("Text", _dailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
             this.txt_Title.DataBindings.Add("Text", _dailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
+            BindingInterval().DataBindings.Add("SelectedValue", _dailyTask, "TaskNotifyInterval", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -74,6 +77,15 @@ namespace TaskDay.Winform
             }
 
             base.OnLoad(e);
+        }
+
+        private MetroComboBox BindingInterval()
+        {
+            this.metroComboBox1.DataSource = new NotifyIntervalViewModel().NotifyIntervals;
+            this.metroComboBox1.DisplayMember = "IntervalText";
+            this.metroComboBox1.ValueMember = "ItervalTimeSpan";
+            this.metroComboBox1.SelectedItem = null;
+            return this.metroComboBox1;
         }
 
         void titb_DeleteEvent(object sender, EventArgs e)
@@ -100,14 +112,17 @@ namespace TaskDay.Winform
             string content = string.Empty;
             foreach (TaskItemTextBox item in _contentList)
             {
-                if (item.ContentText.IsNullOrWhiteSpace())
+                if (!item.ContentText.IsNullOrWhiteSpace())
                 {
                     content += item.ContentText + "\r\n";
                 }
             }
             this._txt_binding.Text = content;
 
-            this._dailyTask.TaskNotifyInterval = new TimeSpan(0, 0, Convert.ToInt32(this.metroTextBox1.Text));
+            if (this.metroComboBox1.SelectedItem != null)
+            {
+                this._dailyTask.TaskNotifyInterval = (TimeSpan)this.metroComboBox1.SelectedValue;
+            }
         }
     }
 }

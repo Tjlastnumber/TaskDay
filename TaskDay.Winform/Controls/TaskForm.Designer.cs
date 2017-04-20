@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lb_Title = new MetroFramework.Controls.MetroLabel();
-            this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.groupMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.cm_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_Date = new MetroFramework.Controls.MetroLabel();
             this.metroLink1 = new MetroFramework.Controls.MetroLink();
@@ -38,7 +38,7 @@
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
-            this.metroContextMenu1.SuspendLayout();
+            this.groupMenu.SuspendLayout();
             this.metroPanel1.SuspendLayout();
             this.metroPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
@@ -58,14 +58,14 @@
             this.lb_Title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lb_Title.UseStyleColors = true;
             // 
-            // metroContextMenu1
+            // groupMenu
             // 
-            this.metroContextMenu1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.metroContextMenu1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.metroContextMenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.groupMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.groupMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.groupMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cm_Delete});
-            this.metroContextMenu1.Name = "metroContextMenu1";
-            this.metroContextMenu1.Size = new System.Drawing.Size(153, 48);
+            this.groupMenu.Name = "metroContextMenu1";
+            this.groupMenu.Size = new System.Drawing.Size(153, 48);
             // 
             // cm_Delete
             // 
@@ -88,7 +88,7 @@
             // 
             // metroLink1
             // 
-            this.metroLink1.ContextMenuStrip = this.metroContextMenu1;
+            this.metroLink1.ContextMenuStrip = this.groupMenu;
             this.metroLink1.Dock = System.Windows.Forms.DockStyle.Right;
             this.metroLink1.Image = global::TaskDay.Winform.Properties.Resources.Hamburg;
             this.metroLink1.ImageSize = 32;
@@ -173,7 +173,7 @@
             this.Style = MetroFramework.MetroColorStyle.Default;
             this.Text = "TaskForm";
             this.Theme = MetroFramework.MetroThemeStyle.Default;
-            this.metroContextMenu1.ResumeLayout(false);
+            this.groupMenu.ResumeLayout(false);
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel2.PerformLayout();
@@ -187,7 +187,7 @@
 
         private MetroFramework.Controls.MetroLabel lb_Title;
         private MetroFramework.Controls.MetroLink metroLink1;
-        private MetroFramework.Controls.MetroContextMenu metroContextMenu1;
+        private MetroFramework.Controls.MetroContextMenu groupMenu;
         private System.Windows.Forms.ToolStripMenuItem cm_Delete;
         private MetroFramework.Controls.MetroLabel lb_Date;
         private MetroFramework.Controls.MetroLabel metroLabel1;
