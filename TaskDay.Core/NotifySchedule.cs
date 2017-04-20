@@ -32,10 +32,13 @@ namespace TaskDay.Core
 
         public NotifySchedule() { }
 
-        public NotifySchedule(Action action) : this(new[] { action }) { }
+        public NotifySchedule(Action action) : this(string.Empty, new[] { action }) { }
 
-        public NotifySchedule(IEnumerable<Action> actions)
+        public NotifySchedule(string name, Action action) : this(name, new[] { action }) { }
+
+        public NotifySchedule(string name, IEnumerable<Action> actions)
         {
+            this.Name = name;
             this.Notifies = actions.ToList();
             AdditionalSchedules = new List<NotifySchedule>();
             PendingRunOnce = false;
@@ -53,28 +56,6 @@ namespace TaskDay.Core
         {
             DelayRunFor = interval;
             CalculateNextRun = x => x.Add(DelayRunFor);
-        }
-
-        public NotifySchedule(INotifyMessage message, Action worker, TaskScheduler ts)
-        {
-            AddNotify(message, worker, ts);
-        }
-
-        public async void AddNotify(INotifyMessage message, Action worker, TaskScheduler ts)
-        {
-            await Task.Factory.StartNew(Task.Delay(message.NotifyInterval).Wait).ContinueWith(t =>
-            {
-                if (t.Exception != null)
-                {
-                    Debug.WriteLine(t.Exception);
-                }
-                worker();
-            }, ts);
-        }
-
-        public void AddNotify(INotifyMessage message, Action worker)
-        {
-            AddNotify(message, worker, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         /// <summary>

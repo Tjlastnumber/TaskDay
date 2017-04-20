@@ -49,9 +49,11 @@
     <Compile Include="JobManager.cs" />
     <Compile Include="NotifySchedule.cs" />
     <Compile Include="NotifyScheduleCollection.cs" />
+    <Compile Include="Registry.cs" />
     <Compile Include="TaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Timer.cs" />
+    <Compile Include="ViewModel\NotifyIntervalViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

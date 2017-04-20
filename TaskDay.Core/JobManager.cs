@@ -58,6 +58,30 @@ namespace TaskDay.Core
         #region Start & Stop
 
         /// <summary>
+        /// Initializes the job manager with the jobs to run and starts it.
+        /// </summary>
+        /// <param name="registry">Registry of jobs to run</param>
+        public static void Initialize(Registry registry)
+        {
+            InitializeWithoutStarting(registry);
+            Start();
+        }
+
+        /// <summary>
+        /// Initializes the job manager with the jobs without starting it.
+        /// </summary>
+        /// <param name="registry">Registry of jobs to run</param>
+        public static void InitializeWithoutStarting(Registry registry)
+        {
+            if (registry == null)
+                throw new ArgumentNullException("registry");
+
+            _userUtc = registry.UtcTime;
+            CalculateNextRun(registry.NotifySchedules).ToList().ForEach(SendNotify);
+        }
+
+
+        /// <summary>
         /// Starts the job manager.
         /// </summary>
         public static void Start()
@@ -90,6 +114,18 @@ namespace TaskDay.Core
         #endregion
 
         #region add & remove Notify
+
+        public static void AddJob(NotifySchedule schedule, Action<NotifySchedule> jobSchedule)
+        {
+            if (schedule == null)
+                throw new ArgumentNullException("schedule");
+
+            if (jobSchedule == null)
+                throw new ArgumentNullException("jobSchedule");
+
+            AddJob(jobSchedule, schedule);
+        }
+
         /// <summary>
         /// Adds a job schedule to the job manager.
         /// </summary>
@@ -102,7 +138,6 @@ namespace TaskDay.Core
 
             if (schedule == null)
                 throw new ArgumentNullException("schedule");
-
             AddJob(schedule, new NotifySchedule(job));
         }
 

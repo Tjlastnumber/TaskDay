@@ -20,33 +20,22 @@ namespace TaskDay.Core
 
         internal static List<ITaskGroup> TaskGroups
         {
-            get
-            {
-                return _taskGroups ??
-                      (_taskGroups = new List<ITaskGroup> 
-                        { 
-                                new DoingTasks(),
-                                new DeletedTasks()
-                        });
-            }
+            get { return _taskGroups ?? (_taskGroups = new List<ITaskGroup>()); }
             private set { _taskGroups = value; }
         }
-        
+
         #region Groups
 
         public static List<ITaskGroup> InitGroup()
         {
             lock (_manager_lock)
             {
-                if (TaskGroups == null)
-                {
-                    TaskGroups = new List<ITaskGroup>
-                    {
-                        new DoingTasks(),
-                        new DeletedTasks()
-                    };
-                }
-                return TaskGroups;
+                return _taskGroups ??
+                      (_taskGroups = new List<ITaskGroup> 
+                        { 
+                                new DoingTasks(),
+                                new FinishTasks()
+                        });
             }
         }
 
@@ -75,20 +64,14 @@ namespace TaskDay.Core
             Debug.WriteLine(group.GroupName, "Add Group");
         }
 
-        public static bool MoveToDeletedGroup(DailyTask dailyTask)
+        public static bool MoveToFinishGroup(DailyTask dailyTask)
         {
             lock (_manager_lock)
             {
-                var fromGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(dailyTask.GroupId));
-                var deletedGroup = GetTaskGroup(DeletedTasks.GUID);
-                if (fromGroup != null && deletedGroup != null)
+                var finishGroup = GetTaskGroup(FinishTasks.GUID);
+                if (finishGroup != null)
                 {
-                    if (fromGroup.DailyTasks.Remove(dailyTask))
-                    {
-                        dailyTask.OldGroupId = fromGroup.GroupId;
-                        InsertTask(deletedGroup, dailyTask);
-                        return true;
-                    }
+                    return MoveTask(finishGroup, dailyTask);
                 }
                 return false;
             }
@@ -127,12 +110,20 @@ namespace TaskDay.Core
             {
                 if (!task.Title.IsNullOrWhiteSpace() || !task.Content.IsNullOrWhiteSpace())
                 {
-                    if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId)) == null)
+                    if (GetTaskGroup(group.GroupId) == null)
                     {
                         AddGroup(group);
                     }
+                    else
+                    {
+                        group = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId));
+                    }
                     group.DailyTasks.Add(task);
+
                     task.GroupId = group.GroupId;
+
+                    OnTaskListChanged(task, TaskChangedType.Add);
+                    Debug.WriteLine(group.DailyTasks.Count);
                     return true;
                 }
                 return false;
@@ -151,52 +142,82 @@ namespace TaskDay.Core
                     }
                     group.DailyTasks.Insert(0, task);
                     task.GroupId = group.GroupId;
+                    OnTaskListChanged(task, TaskChangedType.Insert);
                     return true;
                 }
                 return false;
             }
         }
 
-        public static void RemoveTask(DailyTask task)
+        public static bool RemoveTask(DailyTask task)
         {
             lock (_manager_lock)
             {
-                foreach (var group in TaskGroups)
+                try
                 {
-                    group.DailyTasks.Remove(task);
+                    var result = TaskGroups.SingleOrDefault(p => p.GroupId == task.GroupId).DailyTasks.Remove(task);
+                    task.OldGroupId = task.GroupId;
                     task.GroupId = null;
-                    task.OldGroupId = null;
+                    OnTaskListChanged(task, TaskChangedType.Remove);
+                    return result;
+                }
+                catch
+                {
+                    return false;
                 }
             }
         }
 
-        public static void MoveTask(string fromGroupId, string toGroupId, DailyTask dailyTask)
+        public static bool MoveTask(string toGroupId, DailyTask dailyTask)
         {
             lock (_manager_lock)
             {
-                var fromGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(fromGroupId));
-                var toGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(toGroupId));
-                if (fromGroup != null && toGroup != null)
+                bool result = false;
+                try
                 {
-                    fromGroup.DailyTasks.Remove(dailyTask);
-                    toGroup.DailyTasks.Add(dailyTask);
-                    dailyTask.GroupId = toGroupId;
-                    dailyTask.OldGroupId = fromGroupId;
+                    var fromGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(dailyTask.GroupId));
+                    var toGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(toGroupId));
+                    if (fromGroup != null && toGroup != null)
+                    {
+                        fromGroup.DailyTasks.Remove(dailyTask);
+                        toGroup.DailyTasks.Add(dailyTask);
+                        dailyTask.GroupId = toGroup.GroupId;
+                        dailyTask.OldGroupId = fromGroup.GroupId;
+                        OnTaskListChanged(dailyTask, TaskChangedType.Move);
+                        result = true;
+                    }
+                    return result;
+                }
+                catch
+                {
+                    return result;
                 }
             }
         }
 
-        public static void MoveTask(ITaskGroup fromGroup, ITaskGroup toGroup, DailyTask dailyTask)
+        public static bool MoveTask(ITaskGroup toGroup, DailyTask dailyTask)
         {
             lock (_manager_lock)
             {
-                if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(fromGroup.GroupId)) != null &&
-            TaskGroups.SingleOrDefault(p => p.GroupId.Equals(toGroup.GroupId)) != null)
+                bool result = false;
+                try
                 {
-                    fromGroup.DailyTasks.Remove(dailyTask);
-                    toGroup.DailyTasks.Add(dailyTask);
-                    dailyTask.GroupId = toGroup.GroupId;
-                    dailyTask.OldGroupId = fromGroup.GroupId;
+                    if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(dailyTask.GroupId)) != null &&
+                        TaskGroups.SingleOrDefault(p => p.GroupId.Equals(toGroup.GroupId)) != null)
+                    {
+                        var fromGroup = TaskGroups.SingleOrDefault(p => p.GroupId.Equals(dailyTask.GroupId));
+                        fromGroup.DailyTasks.Remove(dailyTask);
+                        toGroup.DailyTasks.Add(dailyTask);
+                        dailyTask.GroupId = toGroup.GroupId;
+                        dailyTask.OldGroupId = fromGroup.GroupId;
+                        OnTaskListChanged(dailyTask, TaskChangedType.Move);
+                        result = true;
+                    }
+                    return result;
+                }
+                catch
+                {
+                    return result;
                 }
             }
         }
@@ -224,17 +245,35 @@ namespace TaskDay.Core
         }
 
         #endregion
-        
-        public static event EventHandler TaskListChanged;
+
+        #region Event
+        public static event TaskChangedHandler TaskListChanged;
 
         /// <summary>
         /// 任务通知事件
         /// </summary>
         public static event TaskNotifyHandler TaskNotify;
+        private static void OnTaskListChanged(DailyTask task, TaskChangedType type)
+        {
+            if (TaskListChanged != null)
+            {
+                TaskListChanged(task, new TaskChangedEventArgs(type));
+            }
+        }
+        #endregion
     }
 
     public delegate void TaskNotifyHandler(TaskNotifyEventArgs args);
+    public delegate void TaskChangedHandler(DailyTask dt, TaskChangedEventArgs args);
 
+    public class TaskChangedEventArgs : EventArgs
+    {
+        public TaskChangedType ChangedType { get; private set; }
+        public TaskChangedEventArgs(TaskChangedType changedType)
+        {
+            ChangedType = changedType;
+        }
+    }
     public class TaskNotifyEventArgs : EventArgs
     {
         public DailyTask _dt;
@@ -242,5 +281,14 @@ namespace TaskDay.Core
         {
             this._dt = dt;
         }
+    }
+
+    public enum TaskChangedType
+    {
+        Default = 0,
+        Insert = 1,
+        Add = 2,
+        Remove = 3,
+        Move = 4
     }
 }
