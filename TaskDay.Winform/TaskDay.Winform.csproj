@@ -96,6 +96,12 @@
     <Compile Include="Controls\LoadControl.Designer.cs">
       <DependentUpon>LoadControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NotifyContentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NotifyContentControl.Designer.cs">
+      <DependentUpon>NotifyContentControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TaskEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\LoadControl.resx">
       <DependentUpon>LoadControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NotifyContentControl.resx">
+      <DependentUpon>NotifyContentControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TaskEditForm.resx">
       <DependentUpon>TaskEditForm.cs</DependentUpon>
