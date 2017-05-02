@@ -33,8 +33,8 @@ namespace TaskDay.Core
                 return _taskGroups ??
                       (_taskGroups = new List<ITaskGroup> 
                         { 
-                                new DoingTasks(),
-                                new FinishTasks()
+                            new DoingTasks(),
+                            new FinishTasks()
                         });
             }
         }
@@ -81,7 +81,7 @@ namespace TaskDay.Core
         {
             lock (_manager_lock)
             {
-                return TaskGroups;
+                return TaskGroups ?? InitGroup();
             }
         }
 
