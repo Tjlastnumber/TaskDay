@@ -28,7 +28,7 @@ namespace TaskDay.Winform
             this.StyleManager = this.metroStyleManager;
             this.IsMdiContainer = true;
             this.FormClosing += Form1_FormClosing;
-            TaskManager.InitGroup();
+
             TaskManager.TaskListChanged += TaskManager_TaskListChanged;
         }
 
@@ -109,7 +109,7 @@ namespace TaskDay.Winform
 
         private void LoadTasks()
         {
-            TaskManager.ClearGroups();
+            //TaskManager.ClearGroups();
             LoadControl lc = new LoadControl(LoadSource, PointTasks);
             lc.Parent = this;
             lc.Dock = DockStyle.Fill;
@@ -121,7 +121,7 @@ namespace TaskDay.Winform
         {
             TaskManager.ClearGroups();
             var rj = FileHelper.ReadJosn<List<CustomTasks>>();
-            if (rj != null)
+            if (rj != null && rj.Count != 0)
             {
                 TaskManager.LoadGroup(rj.ToList<ITaskGroup>());
                 LoadNotifies();
@@ -190,7 +190,7 @@ namespace TaskDay.Winform
             }
         }
 
-        private async void addTab_Click(object sender, EventArgs e)
+        private void addTab_Click(object sender, EventArgs e)
         {
             DailyTask dt = new DailyTask();
             using (TaskEditForm editForm = new TaskEditForm(dt))
