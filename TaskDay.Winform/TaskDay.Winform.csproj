@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="Common\AppSetManager.cs" />
     <Compile Include="Common\ControlHelper.cs" />
+    <Compile Include="Controls\CustomLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomLabel.Designer.cs">
+      <DependentUpon>CustomLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LoadControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
