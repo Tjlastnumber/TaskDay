@@ -81,7 +81,7 @@ namespace TaskDay.Core
         {
             lock (_manager_lock)
             {
-                return TaskGroups ?? InitGroup();
+                return InitGroup();
             }
         }
 
