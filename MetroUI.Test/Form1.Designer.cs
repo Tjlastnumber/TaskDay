@@ -33,6 +33,7 @@
             this.metroLink2 = new MetroFramework.Controls.MetroLink();
             this.metroLink1 = new MetroFramework.Controls.MetroLink();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
+            this.customLabel1 = new TaskDay.MetroUI.Test.CustomLabel();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +44,6 @@
             this.metroTabControl1.Name = "metroTabControl1";
             this.metroTabControl1.Size = new System.Drawing.Size(374, 511);
             this.metroTabControl1.TabIndex = 3;
-            this.metroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTabControl1.UseSelectable = true;
             // 
             // metroLink2
@@ -74,11 +74,22 @@
             this.metroStyleManager1.Owner = this;
             this.metroStyleManager1.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
+            // customLabel1
+            // 
+            this.customLabel1.AutoSize = true;
+            this.customLabel1.Location = new System.Drawing.Point(123, 31);
+            this.customLabel1.Name = "customLabel1";
+            this.customLabel1.Size = new System.Drawing.Size(87, 19);
+            this.customLabel1.Strikeout = true;
+            this.customLabel1.TabIndex = 6;
+            this.customLabel1.Text = "customLabel1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(414, 591);
+            this.Controls.Add(this.customLabel1);
             this.Controls.Add(this.metroLink2);
             this.Controls.Add(this.metroLink1);
             this.Controls.Add(this.metroTabControl1);
@@ -87,9 +98,10 @@
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.AeroShadow;
             this.Style = MetroFramework.MetroColorStyle.Default;
             this.Text = "TaskDay";
-            this.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Theme = MetroFramework.MetroThemeStyle.Default;
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -99,6 +111,7 @@
         private MetroFramework.Controls.MetroLink metroLink1;
         private MetroFramework.Controls.MetroLink metroLink2;
         private MetroFramework.Components.MetroStyleManager metroStyleManager1;
+        private TaskDay.MetroUI.Test.CustomLabel customLabel1;
     }
 }
 
