@@ -37,7 +37,8 @@ namespace TaskDay.Winform.Controls
             {
                 Point p1 = new Point(0, this.ClientSize.Height / 2);
                 Point p2 = new Point(this.ClientSize.Width, this.ClientSize.Height / 2);
-                e.Graphics.DrawLine(new Pen(Color.Black), p1, p2);
+
+                e.Graphics.DrawLine(new Pen(MetroFramework.Drawing.MetroPaint.ForeColor.Label.Normal(this.StyleManager.Theme)), p1, p2);
             }
         }
     }
