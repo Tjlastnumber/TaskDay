@@ -52,7 +52,7 @@
             this.addTab.Name = "addTab";
             this.addTab.Size = new System.Drawing.Size(108, 23);
             this.addTab.TabIndex = 1;
-            this.addTab.Text = "添加标签";
+            this.addTab.Text = "添加任务";
             this.addTab.UseSelectable = true;
             this.addTab.UseStyleColors = true;
             this.addTab.Click += new System.EventHandler(this.addTab_Click);

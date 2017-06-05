@@ -30,17 +30,10 @@ namespace TaskDay.Winform
         }
 
         private DailyTask _dailyTask;
-        private TextBox _txt_binding;
         private List<TaskItemTextBox> _contentList = new List<TaskItemTextBox>();
 
         public TaskEditForm(DailyTask dt)
         {
-            this._txt_binding = new TextBox();
-            this._txt_binding.Name = "_txt_binding";
-            this._txt_binding.Width = 0;
-            this._txt_binding.Height = 0;
-            this.Controls.Add(this._txt_binding);
-
             _dailyTask = dt;
 
             InitializeComponent();
@@ -53,7 +46,6 @@ namespace TaskDay.Winform
             });
             this.contentPanel.ControlAdded += (s, e) => this.metroStyleManager.Update();
 
-            this._txt_binding.DataBindings.Add("Text", _dailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
             this.txt_Title.DataBindings.Add("Text", _dailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
             BindingInterval().DataBindings.Add("SelectedValue", _dailyTask, "TaskNotifyInterval", true, DataSourceUpdateMode.OnPropertyChanged);
         }
@@ -62,13 +54,14 @@ namespace TaskDay.Winform
         {
             this.Text = _dailyTask.Title;
 
-            if (this._dailyTask.Content != null)
+            if (this._dailyTask.TaskItems != null)
             {
-                foreach (String item in this._dailyTask.Content.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (TaskItem item in this._dailyTask.TaskItems)
                 {
                     var titb = new TaskItemTextBox();
                     titb.DeleteEvent += titb_DeleteEvent;
-                    titb.ContentDataBindings("Text", item, "");
+                    titb.ContentDataBindings("Text", item, "Content");
+                    titb.CheckDataBindings("Checked", item, "IsFinish");
                     this.contentPanel.Controls.Add(titb);
                     _contentList.Add(titb);
                 }
@@ -76,6 +69,7 @@ namespace TaskDay.Winform
                 this.metroStyleManager.Update();
             }
 
+            this.link_Ok.Select();
             base.OnLoad(e);
         }
 
@@ -109,15 +103,16 @@ namespace TaskDay.Winform
 
         private void link_Ok_Click(object sender, EventArgs e)
         {
-            string content = string.Empty;
+            var taskItems = new List<TaskItem>();
             foreach (TaskItemTextBox item in _contentList)
             {
                 if (!item.ContentText.IsNullOrWhiteSpace())
                 {
-                    content += item.ContentText + "\r\n";
+                    TaskItem ti = new TaskItem { IsFinish = item.IsChecked, Content = item.ContentText };
+                    taskItems.Add(ti);
                 }
             }
-            this._txt_binding.Text = content;
+            this._dailyTask.TaskItems = taskItems;
 
             if (this.metroComboBox1.SelectedItem != null)
             {

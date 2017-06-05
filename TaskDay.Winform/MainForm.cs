@@ -13,6 +13,8 @@ using TaskDay.GeneralLibrary;
 using TaskDay.Winform.Common;
 using TaskDay.Model;
 using MetroFramework;
+using TaskDay.Core.Event;
+using TaskDay.Core.Enum;
 
 namespace TaskDay.Winform
 {
@@ -32,7 +34,7 @@ namespace TaskDay.Winform
             TaskManager.TaskListChanged += TaskManager_TaskListChanged;
         }
 
-        void TaskManager_TaskListChanged(DailyTask task, TaskChangedEventArgs args)
+        void TaskManager_TaskListChanged(DailyTask task, TaskItemChangedEventArgs args)
         {
             switch (args.ChangedType)
             {
@@ -133,7 +135,6 @@ namespace TaskDay.Winform
             foreach (var taskgroup in TaskManager.GetTaskGroups())
             {
                 MetroFramework.Controls.MetroTabPage tabPage = new MetroFramework.Controls.MetroTabPage();
-                tabPage.UseVisualStyleBackColor = true;
                 tabPage.Name = taskgroup.GroupId;
                 tabPage.Tag = taskgroup;
                 tabPage.Text = taskgroup.GroupName;
@@ -170,16 +171,11 @@ namespace TaskDay.Winform
             form.GlobalStyleManager = this.metroStyleManager;
             form.Show();
             form.SaveEvent += form_SaveEvent;
-            form.FormClosed += form_FormClosed;
+            form.FormClosing += form_FormClosing; 
             return form;
         }
 
-        void form_SaveEvent(object sender, EventArgs e)
-        {
-            FileHelper.SaveJosn(TaskManager.ConvertJson());
-        }
-
-        void form_FormClosed(object sender, FormClosedEventArgs e)
+        void form_FormClosing(object sender, FormClosingEventArgs e)
         {
             var form = sender as TaskForm;
             if (TaskManager.RemoveTask(form.DailyTask))
@@ -188,6 +184,15 @@ namespace TaskDay.Winform
                 this.metroStyleManager.Update();
                 FileHelper.SaveJosn(TaskManager.ConvertJson());
             }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        void form_SaveEvent(object sender, EventArgs e)
+        {
+            FileHelper.SaveJosn(TaskManager.ConvertJson());
         }
 
         private void addTab_Click(object sender, EventArgs e)

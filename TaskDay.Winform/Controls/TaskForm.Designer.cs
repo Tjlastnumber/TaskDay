@@ -34,10 +34,10 @@
             this.cm_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_Date = new MetroFramework.Controls.MetroLabel();
             this.metroLink1 = new MetroFramework.Controls.MetroLink();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
+            this.contentPanel = new MetroFramework.Controls.MetroPanel();
             this.groupMenu.SuspendLayout();
             this.metroPanel1.SuspendLayout();
             this.metroPanel2.SuspendLayout();
@@ -65,12 +65,12 @@
             this.groupMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cm_Delete});
             this.groupMenu.Name = "metroContextMenu1";
-            this.groupMenu.Size = new System.Drawing.Size(153, 48);
+            this.groupMenu.Size = new System.Drawing.Size(101, 26);
             // 
             // cm_Delete
             // 
             this.cm_Delete.Name = "cm_Delete";
-            this.cm_Delete.Size = new System.Drawing.Size(152, 22);
+            this.cm_Delete.Size = new System.Drawing.Size(100, 22);
             this.cm_Delete.Text = "删除";
             this.cm_Delete.Click += new System.EventHandler(this.cm_Delete_Click);
             // 
@@ -99,19 +99,6 @@
             this.metroLink1.UseSelectable = true;
             this.metroLink1.UseStyleColors = true;
             this.metroLink1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.metroLink1_MouseClick);
-            // 
-            // metroLabel1
-            // 
-            this.metroLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(24, 62);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(28, 19);
-            this.metroLabel1.TabIndex = 4;
-            this.metroLabel1.Text = "123";
-            this.metroLabel1.WrapToLine = true;
             // 
             // metroPanel1
             // 
@@ -149,6 +136,22 @@
             // 
             this.metroStyleManager1.Owner = this;
             // 
+            // contentPanel
+            // 
+            this.contentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.contentPanel.HorizontalScrollbarBarColor = true;
+            this.contentPanel.HorizontalScrollbarHighlightOnWheel = false;
+            this.contentPanel.HorizontalScrollbarSize = 10;
+            this.contentPanel.Location = new System.Drawing.Point(23, 60);
+            this.contentPanel.Name = "contentPanel";
+            this.contentPanel.Size = new System.Drawing.Size(183, 89);
+            this.contentPanel.TabIndex = 6;
+            this.contentPanel.VerticalScrollbarBarColor = true;
+            this.contentPanel.VerticalScrollbarHighlightOnWheel = false;
+            this.contentPanel.VerticalScrollbarSize = 10;
+            // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -156,7 +159,7 @@
             this.AutoSize = true;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
             this.ClientSize = new System.Drawing.Size(388, 165);
-            this.Controls.Add(this.metroLabel1);
+            this.Controls.Add(this.contentPanel);
             this.Controls.Add(this.lb_Title);
             this.Controls.Add(this.metroPanel1);
             this.DisplayHeader = false;
@@ -190,9 +193,9 @@
         private MetroFramework.Controls.MetroContextMenu groupMenu;
         private System.Windows.Forms.ToolStripMenuItem cm_Delete;
         private MetroFramework.Controls.MetroLabel lb_Date;
-        private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroPanel metroPanel2;
         private MetroFramework.Components.MetroStyleManager metroStyleManager1;
+        private MetroFramework.Controls.MetroPanel contentPanel;
     }
 }

@@ -134,7 +134,7 @@
             this.metroLink1.ImageSize = 32;
             this.metroLink1.Location = new System.Drawing.Point(23, 395);
             this.metroLink1.Name = "metroLink1";
-            this.metroLink1.Size = new System.Drawing.Size(44, 23);
+            this.metroLink1.Size = new System.Drawing.Size(25, 23);
             this.metroLink1.TabIndex = 5;
             this.metroLink1.UseSelectable = true;
             // 
@@ -147,10 +147,11 @@
             // metroDateTime1
             // 
             this.metroDateTime1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.metroDateTime1.Location = new System.Drawing.Point(67, 392);
+            this.metroDateTime1.CustomFormat = "yyyy-MM-dd 00:00:00";
+            this.metroDateTime1.Location = new System.Drawing.Point(54, 392);
             this.metroDateTime1.MinimumSize = new System.Drawing.Size(0, 29);
             this.metroDateTime1.Name = "metroDateTime1";
-            this.metroDateTime1.Size = new System.Drawing.Size(200, 29);
+            this.metroDateTime1.Size = new System.Drawing.Size(190, 29);
             this.metroDateTime1.TabIndex = 6;
             // 
             // metroComboBox1
@@ -158,9 +159,9 @@
             this.metroComboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroComboBox1.FormattingEnabled = true;
             this.metroComboBox1.ItemHeight = 23;
-            this.metroComboBox1.Location = new System.Drawing.Point(67, 427);
+            this.metroComboBox1.Location = new System.Drawing.Point(250, 392);
             this.metroComboBox1.Name = "metroComboBox1";
-            this.metroComboBox1.Size = new System.Drawing.Size(200, 29);
+            this.metroComboBox1.Size = new System.Drawing.Size(185, 29);
             this.metroComboBox1.TabIndex = 7;
             this.metroComboBox1.UseSelectable = true;
             // 

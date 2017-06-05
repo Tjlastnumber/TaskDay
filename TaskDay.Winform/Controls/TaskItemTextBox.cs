@@ -34,6 +34,42 @@ namespace TaskDay.Winform.Controls
             this.txt_Content.DataBindings.Add(propertyName, dataSource, dataMember);
         }
 
+        public void CheckDataBindings(string propertyName, object dataSource, string dataMember)
+        {
+            this.cb_Finish.DataBindings.Add(propertyName, dataSource, dataMember);
+        }
+
+        /// <summary>
+        /// 是否处于选中状态
+        /// </summary>
+        public bool IsChecked
+        {
+            get
+            {
+                return this.cb_Finish.Checked;
+            }
+            set
+            {
+                this.cb_Finish.Checked = value;
+            }
+        }
+
+
+        /// <summary>
+        /// 是否进入编辑状态
+        /// </summary>
+        public bool EditState
+        {
+            get
+            {
+                return !this.cb_Finish.Visible;
+            }
+            set
+            {
+                this.cb_Finish.Visible = !value;
+            }
+        }
+
         public TaskItemTextBox()
         {
             InitializeComponent();
@@ -45,6 +81,18 @@ namespace TaskDay.Winform.Controls
             this.txt_Content.ButtonClick += txt_Content_ButtonClick;
 
             this.GotFocus += TaskItemTextBox_GotFocus;
+            this.txt_Content.GotFocus += txt_Content_GotFocus;
+            this.txt_Content.LostFocus += txt_Content_LostFocus;
+        }
+
+        void txt_Content_GotFocus(object sender, EventArgs e)
+        {
+            this.EditState = true;
+        }
+
+        void txt_Content_LostFocus(object sender, EventArgs e)
+        {
+            this.EditState = false;
         }
 
         void TaskItemTextBox_GotFocus(object sender, EventArgs e)

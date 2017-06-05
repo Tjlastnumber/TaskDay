@@ -31,12 +31,14 @@
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.txt_Content = new MetroFramework.Controls.MetroTextBox();
             this.metroLink1 = new MetroFramework.Controls.MetroLink();
+            this.cb_Finish = new MetroFramework.Controls.MetroCheckBox();
             this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroPanel1
             // 
             this.metroPanel1.Controls.Add(this.txt_Content);
+            this.metroPanel1.Controls.Add(this.cb_Finish);
             this.metroPanel1.Controls.Add(this.metroLink1);
             this.metroPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroPanel1.HorizontalScrollbarBarColor = true;
@@ -57,7 +59,7 @@
             // 
             // 
             this.txt_Content.CustomButton.Image = null;
-            this.txt_Content.CustomButton.Location = new System.Drawing.Point(176, 1);
+            this.txt_Content.CustomButton.Location = new System.Drawing.Point(150, 1);
             this.txt_Content.CustomButton.Name = "";
             this.txt_Content.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.txt_Content.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -68,7 +70,7 @@
             this.txt_Content.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_Content.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txt_Content.Lines = new string[0];
-            this.txt_Content.Location = new System.Drawing.Point(30, 0);
+            this.txt_Content.Location = new System.Drawing.Point(56, 0);
             this.txt_Content.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txt_Content.MaxLength = 32767;
             this.txt_Content.Name = "txt_Content";
@@ -81,7 +83,7 @@
             this.txt_Content.ShortcutsEnabled = true;
             this.txt_Content.ShowButton = true;
             this.txt_Content.ShowClearButton = true;
-            this.txt_Content.Size = new System.Drawing.Size(202, 27);
+            this.txt_Content.Size = new System.Drawing.Size(176, 27);
             this.txt_Content.TabIndex = 2;
             this.txt_Content.UseSelectable = true;
             this.txt_Content.WaterMark = "内容";
@@ -102,6 +104,17 @@
             this.metroLink1.TabIndex = 3;
             this.metroLink1.UseSelectable = true;
             // 
+            // metroCheckBox1
+            // 
+            this.cb_Finish.AutoSize = true;
+            this.cb_Finish.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cb_Finish.Location = new System.Drawing.Point(30, 0);
+            this.cb_Finish.Name = "metroCheckBox1";
+            this.cb_Finish.Size = new System.Drawing.Size(26, 27);
+            this.cb_Finish.TabIndex = 4;
+            this.cb_Finish.Text = " ";
+            this.cb_Finish.UseSelectable = true;
+            // 
             // TaskItemTextBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(5F, 9F);
@@ -112,6 +125,7 @@
             this.Name = "TaskItemTextBox";
             this.Size = new System.Drawing.Size(232, 27);
             this.metroPanel1.ResumeLayout(false);
+            this.metroPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -121,5 +135,6 @@
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroTextBox txt_Content;
         private MetroFramework.Controls.MetroLink metroLink1;
+        private MetroFramework.Controls.MetroCheckBox cb_Finish;
     }
 }

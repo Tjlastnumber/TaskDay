@@ -12,6 +12,8 @@ using MetroFramework.Components;
 using TaskDay.Core;
 using TaskDay.GeneralLibrary;
 using TaskDay.Model;
+using TaskDay.Winform.Controls;
+using TaskDay.Winform.Common;
 
 namespace TaskDay.Winform
 {
@@ -22,13 +24,13 @@ namespace TaskDay.Winform
         public DailyTask DailyTask { get; private set; }
         public MetroStyleManager GlobalStyleManager
         {
-            get 
+            get
             {
-                return this.StyleManager; 
+                return this.StyleManager;
             }
-            set 
+            set
             {
-                this.StyleManager = value; 
+                this.StyleManager = value;
             }
         }
 
@@ -36,17 +38,26 @@ namespace TaskDay.Winform
         {
             InitializeComponent();
 
+            this.DailyTask = dt;
+
             this.ControlBox = false;
             this.MdiParent = mdiParent;
 
             this.MouseDown += TaskForm_MouseDown;
             this.MouseMove += TaskForm_MouseMove;
             this.MouseUp += TaskForm_MouseUp;
-            this.DailyTask = dt;
+
             this.lb_Title.DataBindings.Add("Text", DailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
             this.lb_Date.DataBindings.Add("Text", DailyTask, "Date", true, DataSourceUpdateMode.OnPropertyChanged);
-            this.metroLabel1.DataBindings.Add("Text", DailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
 
+            this.contentPanel.PagePanelDock<CustomLabel>(callBack => { }, false);
+            ShowTaskContentItem(dt);
+            PointMenuItem();
+        }
+
+
+        private void PointMenuItem()
+        {
             foreach (var group in TaskManager.GetTaskGroups())
             {
                 var menuItem = new ToolStripMenuItem(group.GroupName);
@@ -73,11 +84,24 @@ namespace TaskDay.Winform
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
+                    ShowTaskContentItem(DailyTask);
                     if (SaveEvent != null)
                     {
                         this.SaveEvent(this, null);
                     }
                 }
+            }
+        }
+
+        private void ShowTaskContentItem(DailyTask dailyTask)
+        {
+            this.contentPanel.Controls.Clear();
+            foreach (var taskItem in dailyTask.TaskItems)
+            {
+                CustomLabel cl = new CustomLabel();
+                this.contentPanel.Controls.Add(cl);
+                cl.Text = taskItem.Content;
+                cl.Strikeout = taskItem.IsFinish;
             }
         }
 
