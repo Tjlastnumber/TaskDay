@@ -30,34 +30,40 @@ namespace MetroUI.Test.Contorls
 
             InitializeComponent();
 
-
-            this._txt_binding.DataBindings.Add("Text", _dailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
-            this.txt_Title.DataBindings.Add("Text", _dailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
-            this.metroPanel1.PagePanelDock<TaskItemTextBox>(list =>
+            try
             {
-                string content = string.Empty;
-                foreach (TaskItemTextBox item in list)
+                this._txt_binding.DataBindings.Add("Text", _dailyTask.TaskItems, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
+                this.txt_Title.DataBindings.Add("Text", _dailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
+                this.metroPanel1.PagePanelDock<TaskItemTextBox>(list =>
                 {
-                    if (!string.IsNullOrWhiteSpace(item.ContentText))
+                    string content = string.Empty;
+                    foreach (TaskItemTextBox item in list)
                     {
-                        content += item.ContentText + "\r\n";
+                        if (!string.IsNullOrWhiteSpace(item.ContentText))
+                        {
+                            content += item.ContentText + "\r\n";
+                        }
                     }
-                }
-                this._txt_binding.Text = content;
-            });
+                    this._txt_binding.Text = content;
+                });
+
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         protected override void OnLoad(EventArgs e)
         {
             this.Text = _dailyTask.Title;
 
-            if (this._dailyTask.Content != null)
+            if (this._dailyTask.TaskItems != null)
             {
-                foreach (String item in this._dailyTask.Content.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (TaskItem item in this._dailyTask.TaskItems)
                 {
                     var titb = new TaskItemTextBox();
                     titb.DeleteEvent += (s, eve) => this.metroPanel1.Controls.Remove(titb);
-                    titb.ContentDataBindings("Text", item, "");
+                    titb.ContentDataBindings("Text", item, "Content");
                     this.metroPanel1.Controls.Add(titb);
                 }
             }

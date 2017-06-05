@@ -21,7 +21,7 @@ namespace TaskDay.Model
         /// <summary>
         /// 内容
         /// </summary>
-        public string Content { get; set; }
+        public List<TaskItem> TaskItems { get; set; }
 
         /// <summary>
         /// 日期
@@ -52,6 +52,7 @@ namespace TaskDay.Model
         {
             var dateTimeNow = DateTime.Now;
             Date = new DateTime(dateTimeNow.Year, dateTimeNow.Month, dateTimeNow.Day, dateTimeNow.Hour, dateTimeNow.Minute, dateTimeNow.Second);
+            TaskItems = new List<TaskItem>();
             TaskNotifyInterval = new TimeSpan(0, 15, 0);
         }
     }

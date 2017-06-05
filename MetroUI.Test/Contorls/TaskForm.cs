@@ -31,9 +31,15 @@ namespace MetroUI.Test.Contorls
             this.MouseMove += TaskForm_MouseMove;
             this.MouseUp += TaskForm_MouseUp;
             this.DailyTask = dt;
-            this.lb_Title.DataBindings.Add("Text", DailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
-            this.lb_Date.DataBindings.Add("Text", DailyTask, "Date", true, DataSourceUpdateMode.OnPropertyChanged);
-            this.metroLabel1.DataBindings.Add("Text", DailyTask, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
+            try
+            {
+                this.lb_Title.DataBindings.Add("Text", DailyTask, "Title", true, DataSourceUpdateMode.OnPropertyChanged);
+                this.lb_Date.DataBindings.Add("Text", DailyTask, "Date", true, DataSourceUpdateMode.OnPropertyChanged);
+                this.metroLabel1.DataBindings.Add("Text", DailyTask.TaskItems, "Content", true, DataSourceUpdateMode.OnPropertyChanged);
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         void TaskForm_MouseDown(object sender, MouseEventArgs e)
@@ -47,7 +53,7 @@ namespace MetroUI.Test.Contorls
             {
                 TaskEditForm form = new TaskEditForm(DailyTask);
                 form.StartPosition = FormStartPosition.CenterParent;
-                if(form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                 }
             }

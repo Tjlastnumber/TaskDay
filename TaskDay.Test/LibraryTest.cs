@@ -26,29 +26,29 @@ namespace TaskDay.Test
         [TestMethod]
         public void ManagerTaskJosnSave_Test()
         {
-            TaskManager.AddGroup(new DoingTasks
-            {
-                DailyTasks = new System.Collections.Generic.List<DailyTask>()
-                {
-                    new DailyTask{ Title = "Title1", Content = "Content1"}, 
-                    new DailyTask{ Title = "Title2", Content = "Content2"}, 
-                    new DailyTask{ Title = "Title3", Content = "Content3"}, 
-                    new DailyTask{ Title = "Title4", Content = "Content4"}, 
-                },
-            });
+            var doingTasks = DoingTasks.Instance;
+            var finishTasks = FinishTasks.Instance;
 
-            TaskManager.AddGroup(new FinishTasks
-            {
-                DailyTasks = new System.Collections.Generic.List<DailyTask>()
+            doingTasks.DailyTasks = new System.Collections.Generic.List<DailyTask>()
                 {
-                    new DailyTask{Title = "Title0", Content = "Content0"}
-                }
-            });
+                    new DailyTask{ Title = "Title1", TaskItems =new List<TaskItem>{ new TaskItem{Content =  "Content1"}}}, 
+                    new DailyTask{ Title = "Title2", TaskItems =new List<TaskItem>{ new TaskItem{Content =  "Content2"}}}, 
+                    new DailyTask{ Title = "Title3", TaskItems =new List<TaskItem>{ new TaskItem{Content =  "Content3"}}}, 
+                    new DailyTask{ Title = "Title4", TaskItems =new List<TaskItem>{ new TaskItem{Content =  "Content4"}}} 
+                };
 
-            FileHelper.SaveJosn(TaskManager.ConvertJson());
+            finishTasks.DailyTasks = new System.Collections.Generic.List<DailyTask>()
+                {
+                    new DailyTask{Title = "Title0", TaskItems = new List<TaskItem>{ new TaskItem{ Content = "Content0"}}}
+                };
+
+            TaskManager.AddGroup(doingTasks);
+            TaskManager.AddGroup(finishTasks);
+
+            FileHelper.SaveJosn(TaskManager.ConvertFormatJson());
 
             Assert.IsTrue(File.Exists(FileHelper.FilePath));
-            Assert.AreEqual(File.ReadAllText(FileHelper.FilePath, Encoding.UTF8), TaskManager.ConvertJson());
+            Assert.AreEqual(File.ReadAllText(FileHelper.FilePath, Encoding.UTF8), TaskManager.ConvertFormatJson());
         }
 
         [TestMethod]

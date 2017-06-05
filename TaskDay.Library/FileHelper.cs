@@ -13,7 +13,7 @@ namespace TaskDay.GeneralLibrary
     public static class FileHelper
     {
         private readonly static string FolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "TaskDay");
-        public static string FileName = "Task.js";
+        public static string FileName = "TaskDay.js";
         public static string FilePath = Path.Combine(FolderPath, FileName);
 
         public static void SaveJosn(string jsonString)

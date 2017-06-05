@@ -16,23 +16,42 @@ namespace TaskDay.Model
 
     public class FinishTasks : CustomTasks
     {
+        private static FinishTasks instance;
         public static readonly string GUID = "A48D4811-952D-4142-A1B8-E5EEA8B639CE";
-        public FinishTasks()
+        private FinishTasks()
             : base()
         {
             this.GroupName = "已完成";
             this.GroupId = GUID; 
         }
+
+        public static FinishTasks Instance
+        {
+            get
+            {
+                return instance ?? (instance = new FinishTasks());
+            }
+        }
     }
 
     public class DoingTasks : CustomTasks
     {
+        private static DoingTasks instance;
         public static readonly string GUID = "B54CCF78-51DF-4B06-A480-D35F31DDF09A";
-        public DoingTasks()
+
+        private DoingTasks()
             : base()
         {
             this.GroupName = "今日任务";
             this.GroupId = GUID; 
+        }
+
+        public static DoingTasks Instance
+        {
+            get
+            {
+                return instance ?? (instance = new DoingTasks());
+            }
         }
     }
 
