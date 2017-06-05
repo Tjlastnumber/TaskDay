@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="Common\StringExpand.cs" />
     <Compile Include="CoreCollectionExpand\CollectionExpand.cs" />
+    <Compile Include="Enum\TaskChangedType.cs" />
     <Compile Include="Event\JobEndInfo.cs" />
     <Compile Include="Event\JobExceptionInfo.cs" />
     <Compile Include="Event\JobStartInfo.cs" />
+    <Compile Include="Event\TaskItemChangedEventArgs.cs" />
+    <Compile Include="Event\TaskItemNotifyEventArgs.cs" />
     <Compile Include="JobManager.cs" />
     <Compile Include="NotifySchedule.cs" />
     <Compile Include="NotifyScheduleCollection.cs" />

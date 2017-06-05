@@ -9,6 +9,9 @@ using Newtonsoft.Json.Linq;
 using TaskDay.Model;
 using System.Reflection;
 using TaskDay.Core.Common;
+using TaskDay.Core.CoreCollectionExpand;
+using TaskDay.Core.Enum;
+using TaskDay.Core.Event;
 
 namespace TaskDay.Core
 {
@@ -33,8 +36,8 @@ namespace TaskDay.Core
                 return _taskGroups ??
                       (_taskGroups = new List<ITaskGroup> 
                         { 
-                            new DoingTasks(),
-                            new FinishTasks()
+                           DoingTasks.Instance,
+                           FinishTasks.Instance
                         });
             }
         }
@@ -108,7 +111,7 @@ namespace TaskDay.Core
         {
             lock (_manager_lock)
             {
-                if (!task.Title.IsNullOrWhiteSpace() || !task.Content.IsNullOrWhiteSpace())
+                if (!task.Title.IsNullOrWhiteSpace() || (task.TaskItems != null && task.TaskItems.Count > 0))
                 {
                     if (GetTaskGroup(group.GroupId) == null)
                     {
@@ -130,11 +133,31 @@ namespace TaskDay.Core
             }
         }
 
+        public static bool AddTask(string taskgroupid, DailyTask task)
+        {
+            lock (_manager_lock)
+            {
+                if (!task.Title.IsNullOrWhiteSpace() || (task.TaskItems != null && task.TaskItems.Count > 0))
+                {
+                    var group = GetTaskGroup(taskgroupid);
+                    if (group != null)
+                    {
+                        group.DailyTasks.Add(task);
+                        task.GroupId = group.GroupId;
+                        OnTaskListChanged(task, TaskChangedType.Add);
+                        Debug.WriteLine(group.DailyTasks.Count);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
         public static bool InsertTask(ITaskGroup group, DailyTask task)
         {
             lock (_manager_lock)
             {
-                if (!task.Title.IsNullOrWhiteSpace() || !task.Content.IsNullOrWhiteSpace())
+                if (!task.Title.IsNullOrWhiteSpace() || (task.TaskItems != null && task.TaskItems.Count > 0))
                 {
                     if (TaskGroups.SingleOrDefault(p => p.GroupId.Equals(group.GroupId)) == null)
                     {
@@ -183,6 +206,7 @@ namespace TaskDay.Core
                         toGroup.DailyTasks.Add(dailyTask);
                         dailyTask.GroupId = toGroup.GroupId;
                         dailyTask.OldGroupId = fromGroup.GroupId;
+
                         OnTaskListChanged(dailyTask, TaskChangedType.Move);
                         result = true;
                     }
@@ -247,48 +271,27 @@ namespace TaskDay.Core
         #endregion
 
         #region Event
-        public static event TaskChangedHandler TaskListChanged;
+        public static event TaskNotifyHandler TaskNotified;
+        private static void OnTaskNotified(DailyTask task)
+        {
+            if (TaskNotified!=null)
+            {
+                TaskNotified(new TaskItemNotifyEventArgs(task));
+            }
+        }
 
         /// <summary>
         /// 任务通知事件
         /// </summary>
-        public static event TaskNotifyHandler TaskNotify;
+        public static event TaskChangedHandler TaskListChanged;
         private static void OnTaskListChanged(DailyTask task, TaskChangedType type)
         {
             if (TaskListChanged != null)
             {
-                TaskListChanged(task, new TaskChangedEventArgs(type));
+                TaskListChanged(task, new TaskItemChangedEventArgs(type));
             }
         }
         #endregion
     }
 
-    public delegate void TaskNotifyHandler(TaskNotifyEventArgs args);
-    public delegate void TaskChangedHandler(DailyTask dt, TaskChangedEventArgs args);
-
-    public class TaskChangedEventArgs : EventArgs
-    {
-        public TaskChangedType ChangedType { get; private set; }
-        public TaskChangedEventArgs(TaskChangedType changedType)
-        {
-            ChangedType = changedType;
-        }
-    }
-    public class TaskNotifyEventArgs : EventArgs
-    {
-        public DailyTask _dt;
-        public TaskNotifyEventArgs(DailyTask dt)
-        {
-            this._dt = dt;
-        }
-    }
-
-    public enum TaskChangedType
-    {
-        Default = 0,
-        Insert = 1,
-        Add = 2,
-        Remove = 3,
-        Move = 4
-    }
 }
