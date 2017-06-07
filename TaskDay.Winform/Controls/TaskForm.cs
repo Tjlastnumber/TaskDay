@@ -102,6 +102,7 @@ namespace TaskDay.Winform
                 this.contentPanel.Controls.Add(cl);
                 cl.Text = taskItem.Content;
                 cl.Strikeout = taskItem.IsFinish;
+                cl.StyleManager = this.contentPanel.StyleManager;
             }
         }
 

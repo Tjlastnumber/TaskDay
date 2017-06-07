@@ -92,7 +92,6 @@ namespace TaskDay.Winform
             base.OnLoad(e);
 
             LoadTasks();
-
         }
 
         private void LoadNotifies()
@@ -111,7 +110,6 @@ namespace TaskDay.Winform
 
         private void LoadTasks()
         {
-            //TaskManager.ClearGroups();
             LoadControl lc = new LoadControl(LoadSource, PointTasks);
             lc.Parent = this;
             lc.Dock = DockStyle.Fill;

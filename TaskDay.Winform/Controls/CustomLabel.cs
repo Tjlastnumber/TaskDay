@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -37,8 +38,12 @@ namespace TaskDay.Winform.Controls
             {
                 Point p1 = new Point(0, this.ClientSize.Height / 2);
                 Point p2 = new Point(this.ClientSize.Width, this.ClientSize.Height / 2);
-
-                e.Graphics.DrawLine(new Pen(MetroFramework.Drawing.MetroPaint.ForeColor.Label.Normal(this.StyleManager.Theme)), p1, p2);
+                
+                if (this.StyleManager != null)
+                {
+                    e.Graphics.DrawLine(new Pen(MetroFramework.Drawing.MetroPaint.ForeColor.Label.Normal(this.StyleManager.Theme)), p1, p2);
+                    Debug.WriteLine(base.StyleManager == null);
+                }
             }
         }
     }
