@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Common\StringExpand.cs" />
     <Compile Include="CoreCollectionExpand\CollectionExpand.cs" />
+    <Compile Include="CoreCollectionExpand\NotifyPropertyChangedExtension.cs" />
     <Compile Include="Enum\TaskChangedType.cs" />
     <Compile Include="Event\JobEndInfo.cs" />
     <Compile Include="Event\JobExceptionInfo.cs" />
