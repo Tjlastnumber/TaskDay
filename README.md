@@ -14,7 +14,3 @@
 
 winform版、WPF版、UWP版
 
-#### winform版下载地址
-1. [http://lastnumber.coding.me/TaskDay/docs](http://lastnumber.coding.me/TaskDay/docs)
-2. [http://lastnumber.coding.me/TaskDay/docs/TaskDay.Winform.application](http://lastnumber.coding.me/TaskDay/docs/TaskDay.Winform.application)
-
